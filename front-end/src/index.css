@@ -1,0 +1,157 @@
+@import "tailwindcss";
+
+/* ==========================================================
+   Hostel Management System - 3D Design Look & Enhancements
+   ========================================================== */
+
+:root {
+  --perspective: 1000px;
+}
+
+/* 3D Floating Animation */
+@keyframes float3D {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(1.5deg);
+  }
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.35));
+  }
+  50% {
+    filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.65));
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-float-3d {
+  animation: float3D 4s ease-in-out infinite;
+}
+
+.animate-glow-3d {
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+/* 3D Isometric Card Style */
+.card-3d {
+  background: #ffffff;
+  border-radius: 1.25rem;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.03),
+    0 10px 25px -5px rgba(99, 102, 241, 0.07),
+    0 1px 0 rgba(255, 255, 255, 0.9) inset;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-style: preserve-3d;
+}
+
+.card-3d:hover {
+  transform: translateY(-5px) scale(1.01);
+  box-shadow: 
+    0 15px 30px -5px rgba(99, 102, 241, 0.14),
+    0 8px 12px -4px rgba(0, 0, 0, 0.05),
+    0 0 0 1px rgba(99, 102, 241, 0.25);
+}
+
+/* 3D Stat Tile */
+.stat-tile-3d {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border-radius: 1.25rem;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow:
+    0 4px 6px -2px rgba(0, 0, 0, 0.03),
+    0 12px 24px -4px rgba(79, 70, 229, 0.08),
+    0 1px 0 rgba(255, 255, 255, 1) inset;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.stat-tile-3d:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 16px 32px -4px rgba(79, 70, 229, 0.16),
+    0 4px 8px -2px rgba(0, 0, 0, 0.06);
+}
+
+/* 3D Pushable Buttons */
+.btn-3d {
+  position: relative;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  transition: all 0.15s ease;
+  transform: translateY(0);
+}
+
+.btn-3d:active {
+  transform: translateY(2px) !important;
+}
+
+.btn-3d-indigo {
+  background: linear-gradient(180deg, #6366f1 0%, #4f46e5 100%);
+  color: #ffffff;
+  box-shadow: 
+    0 4px 0 #3730a3,
+    0 8px 16px rgba(79, 70, 229, 0.35);
+}
+
+.btn-3d-indigo:hover {
+  background: linear-gradient(180deg, #6b6ef5 0%, #4338ca 100%);
+  box-shadow: 
+    0 4px 0 #312e81,
+    0 10px 20px rgba(79, 70, 229, 0.45);
+}
+
+.btn-3d-indigo:active {
+  box-shadow: 
+    0 1px 0 #3730a3,
+    0 4px 8px rgba(79, 70, 229, 0.3);
+}
+
+.btn-3d-emerald {
+  background: linear-gradient(180deg, #10b981 0%, #059669 100%);
+  color: #ffffff;
+  box-shadow: 
+    0 4px 0 #047857,
+    0 8px 16px rgba(16, 185, 129, 0.3);
+}
+
+.btn-3d-emerald:active {
+  box-shadow: 
+    0 1px 0 #047857,
+    0 4px 8px rgba(16, 185, 129, 0.25);
+}
+
+/* 3D Glass Badge */
+.badge-3d {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* 3D Logo Emblem Container */
+.logo-emblem-3d {
+  background: linear-gradient(145deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.05) 100%);
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 
+    0 8px 20px rgba(0, 0, 0, 0.25),
+    0 1px 0 rgba(255, 255, 255, 0.5) inset;
+  border-radius: 1rem;
+  backdrop-filter: blur(12px);
+  transition: transform 0.3s ease;
+}
+
+.logo-emblem-3d:hover {
+  transform: rotate(4deg) scale(1.08);
+}
