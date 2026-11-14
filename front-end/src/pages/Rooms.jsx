@@ -8,35 +8,55 @@ import {
   Trash2,
   Search,
   Filter,
+  Layers,
+  Sparkles,
+  Users,
+  CheckCircle2,
+  AlertCircle,
+  Clock,
+  ShieldAlert
 } from 'lucide-react';
 
-const statusColors = {
-  available: 'bg-emerald-100 text-emerald-700 border-emerald-200',
-  occupied: 'bg-blue-100 text-blue-700 border-blue-200',
-  maintenance: 'bg-amber-100 text-amber-700 border-amber-200',
-  reserved: 'bg-orange-100 text-orange-700 border-orange-200',
-};
-
-const statusDot = {
-  available: 'bg-emerald-500',
-  occupied: 'bg-blue-500',
-  maintenance: 'bg-amber-500',
-  reserved: 'bg-orange-500',
+const statusStyles = {
+  available: {
+    badge: 'bg-emerald-50 text-emerald-700 border-emerald-200/80 shadow-[0_2px_8px_rgba(16,185,129,0.15)]',
+    dot: 'bg-emerald-500',
+    border: 'border-t-4 border-t-emerald-500',
+    lightBg: 'from-emerald-50/50 to-white',
+  },
+  occupied: {
+    badge: 'bg-indigo-50 text-indigo-700 border-indigo-200/80 shadow-[0_2px_8px_rgba(99,102,241,0.15)]',
+    dot: 'bg-indigo-500',
+    border: 'border-t-4 border-t-indigo-500',
+    lightBg: 'from-indigo-50/50 to-white',
+  },
+  maintenance: {
+    badge: 'bg-amber-50 text-amber-700 border-amber-200/80 shadow-[0_2px_8px_rgba(245,158,11,0.15)]',
+    dot: 'bg-amber-500',
+    border: 'border-t-4 border-t-amber-500',
+    lightBg: 'from-amber-50/50 to-white',
+  },
+  reserved: {
+    badge: 'bg-purple-50 text-purple-700 border-purple-200/80 shadow-[0_2px_8px_rgba(168,85,247,0.15)]',
+    dot: 'bg-purple-500',
+    border: 'border-t-4 border-t-purple-500',
+    lightBg: 'from-purple-50/50 to-white',
+  },
 };
 
 const demoRooms = [
-  { _id: '1', roomNumber: '101', floor: 1, type: 'single', capacity: 1, status: 'available', rent: 8000 },
-  { _id: '2', roomNumber: '102', floor: 1, type: 'double', capacity: 2, status: 'occupied', rent: 12000, occupants: ['Ahmed Khan'] },
-  { _id: '3', roomNumber: '103', floor: 1, type: 'triple', capacity: 3, status: 'occupied', rent: 15000, occupants: ['Usman Ali', 'Bilal Ahmed'] },
-  { _id: '4', roomNumber: '104', floor: 1, type: 'single', capacity: 1, status: 'maintenance', rent: 8000 },
-  { _id: '5', roomNumber: '201', floor: 2, type: 'double', capacity: 2, status: 'available', rent: 12000 },
-  { _id: '6', roomNumber: '202', floor: 2, type: 'single', capacity: 1, status: 'reserved', rent: 9000 },
-  { _id: '7', roomNumber: '203', floor: 2, type: 'double', capacity: 2, status: 'occupied', rent: 12000, occupants: ['Hamza Tariq', 'Ali Raza'] },
-  { _id: '8', roomNumber: '204', floor: 2, type: 'triple', capacity: 3, status: 'available', rent: 15000 },
-  { _id: '9', roomNumber: '301', floor: 3, type: 'single', capacity: 1, status: 'occupied', rent: 8500, occupants: ['Saad Malik'] },
-  { _id: '10', roomNumber: '302', floor: 3, type: 'double', capacity: 2, status: 'available', rent: 13000 },
-  { _id: '11', roomNumber: '303', floor: 3, type: 'single', capacity: 1, status: 'occupied', rent: 8500, occupants: ['Waqas Shah'] },
-  { _id: '12', roomNumber: '304', floor: 3, type: 'triple', capacity: 3, status: 'maintenance', rent: 16000 },
+  { _id: '1', roomNumber: '101', floor: 1, type: 'single', capacity: 1, status: 'available', rent: 8000, block: 'Block A' },
+  { _id: '2', roomNumber: '102', floor: 1, type: 'double', capacity: 2, status: 'occupied', rent: 12000, occupants: ['Ahmed Khan'], block: 'Block A' },
+  { _id: '3', roomNumber: '103', floor: 1, type: 'triple', capacity: 3, status: 'occupied', rent: 15000, occupants: ['Usman Ali', 'Bilal Ahmed'], block: 'Block A' },
+  { _id: '4', roomNumber: '104', floor: 1, type: 'single', capacity: 1, status: 'maintenance', rent: 8000, block: 'Block A' },
+  { _id: '5', roomNumber: '201', floor: 2, type: 'double', capacity: 2, status: 'available', rent: 12000, block: 'Block B' },
+  { _id: '6', roomNumber: '202', floor: 2, type: 'single', capacity: 1, status: 'reserved', rent: 9000, block: 'Block B' },
+  { _id: '7', roomNumber: '203', floor: 2, type: 'double', capacity: 2, status: 'occupied', rent: 12000, occupants: ['Hamza Tariq', 'Ali Raza'], block: 'Block B' },
+  { _id: '8', roomNumber: '204', floor: 2, type: 'triple', capacity: 3, status: 'available', rent: 15000, block: 'Block B' },
+  { _id: '9', roomNumber: '301', floor: 3, type: 'single', capacity: 1, status: 'occupied', rent: 8500, occupants: ['Saad Malik'], block: 'Block C' },
+  { _id: '10', roomNumber: '302', floor: 3, type: 'double', capacity: 2, status: 'available', rent: 13000, block: 'Block C' },
+  { _id: '11', roomNumber: '303', floor: 3, type: 'single', capacity: 1, status: 'occupied', rent: 8500, occupants: ['Waqas Shah'], block: 'Block C' },
+  { _id: '12', roomNumber: '304', floor: 3, type: 'triple', capacity: 3, status: 'maintenance', rent: 16000, block: 'Block C' },
 ];
 
 const emptyForm = {
@@ -46,6 +66,7 @@ const emptyForm = {
   capacity: 1,
   rent: 8000,
   status: 'available',
+  block: 'Block A',
 };
 
 export default function Rooms() {
@@ -65,7 +86,9 @@ export default function Rooms() {
   }, []);
 
   const filtered = rooms.filter((r) => {
-    const matchSearch = r.roomNumber.toLowerCase().includes(search.toLowerCase());
+    const matchSearch =
+      r.roomNumber.toLowerCase().includes(search.toLowerCase()) ||
+      (r.block && r.block.toLowerCase().includes(search.toLowerCase()));
     const matchStatus = filterStatus === 'all' || r.status === filterStatus;
     return matchSearch && matchStatus;
   });
@@ -85,6 +108,7 @@ export default function Rooms() {
       capacity: room.capacity,
       rent: room.rent,
       status: room.status,
+      block: room.block || 'Block A',
     });
     setModalOpen(true);
   };
@@ -103,7 +127,6 @@ export default function Rooms() {
         setRooms((prev) => [...prev, newRoom]);
       }
     } catch {
-      // Fallback: just update local state
       if (editing) {
         setRooms((prev) =>
           prev.map((r) => (r._id === editing._id ? { ...r, ...form } : r))
@@ -145,178 +168,247 @@ export default function Rooms() {
   };
 
   return (
-    <div>
-      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-slate-800">Rooms</h1>
-          <p className="mt-1 text-sm text-slate-500">
-            Manage hostel rooms and their status
-          </p>
+    <div className="space-y-6 pb-8">
+      {/* 3D Header Section */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <div className="h-11 w-11 rounded-2xl bg-gradient-to-tr from-indigo-600 to-indigo-400 text-white flex items-center justify-center shadow-[0_8px_16px_rgba(79,70,229,0.35)] transform-gpu hover:rotate-6 transition">
+            <BedDouble size={24} />
+          </div>
+          <div>
+            <h1 className="text-2xl font-black text-slate-800 tracking-tight flex items-center gap-2">
+              Rooms & Bed Allocation
+              <span className="pill-3d bg-indigo-50 text-indigo-700 text-xs px-2.5 py-0.5 border border-indigo-200">
+                3D Visualizer
+              </span>
+            </h1>
+            <p className="text-xs text-slate-500 mt-0.5">
+              Manage hostel floor wings, bed occupancies, and room service status
+            </p>
+          </div>
         </div>
+
         <button
           onClick={openAdd}
-          className="flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-indigo-700"
+          className="btn-3d btn-3d-indigo px-4 py-2.5 text-xs flex items-center gap-2 self-start sm:self-auto"
         >
           <Plus size={16} />
-          Add Room
+          Add New Room
         </button>
       </div>
 
-      {/* Filter pills */}
-      <div className="mb-4 flex flex-wrap items-center gap-2">
-        {['all', 'available', 'occupied', 'maintenance', 'reserved'].map(
-          (s) => (
+      {/* 3D Metric Overview Tiles */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div className="card-depth-3d p-4 rounded-xl flex items-center justify-between">
+          <div>
+            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Total Rooms</p>
+            <p className="text-xl font-black text-slate-800 mt-1">{counts.all}</p>
+          </div>
+          <div className="h-10 w-10 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center font-bold text-sm">
+            🏢
+          </div>
+        </div>
+
+        <div className="card-depth-3d p-4 rounded-xl flex items-center justify-between">
+          <div>
+            <p className="text-[11px] font-bold text-emerald-600 uppercase tracking-wider">Available</p>
+            <p className="text-xl font-black text-emerald-600 mt-1">{counts.available}</p>
+          </div>
+          <div className="h-10 w-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-sm">
+            ✓
+          </div>
+        </div>
+
+        <div className="card-depth-3d p-4 rounded-xl flex items-center justify-between">
+          <div>
+            <p className="text-[11px] font-bold text-indigo-600 uppercase tracking-wider">Occupied</p>
+            <p className="text-xl font-black text-indigo-600 mt-1">{counts.occupied}</p>
+          </div>
+          <div className="h-10 w-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-sm">
+            👥
+          </div>
+        </div>
+
+        <div className="card-depth-3d p-4 rounded-xl flex items-center justify-between">
+          <div>
+            <p className="text-[11px] font-bold text-amber-600 uppercase tracking-wider">Under Service</p>
+            <p className="text-xl font-black text-amber-600 mt-1">{counts.maintenance}</p>
+          </div>
+          <div className="h-10 w-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold text-sm">
+            🔧
+          </div>
+        </div>
+      </div>
+
+      {/* Filter and Search Bar */}
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
+        {/* 3D Filter Pills */}
+        <div className="flex flex-wrap items-center gap-1.5 w-full sm:w-auto">
+          {['all', 'available', 'occupied', 'maintenance', 'reserved'].map((s) => (
             <button
               key={s}
               onClick={() => setFilterStatus(s)}
-              className={`rounded-full border px-3 py-1.5 text-xs font-medium capitalize transition-colors ${
+              className={`pill-3d px-3 py-1.5 text-xs capitalize cursor-pointer border transition ${
                 filterStatus === s
-                  ? 'border-indigo-300 bg-indigo-50 text-indigo-700'
-                  : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50'
+                  ? 'bg-indigo-600 text-white border-indigo-700 shadow-[0_4px_12px_rgba(79,70,229,0.35)]'
+                  : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'
               }`}
             >
               {s} ({counts[s]})
             </button>
-          )
-        )}
+          ))}
+        </div>
+
+        {/* 3D Search Input */}
+        <div className="relative w-full sm:w-72">
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+          <input
+            type="text"
+            placeholder="Search room number, block..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 shadow-xs"
+          />
+        </div>
       </div>
 
-      {/* Search */}
-      <div className="relative mb-4 sm:max-w-xs">
-        <Search
-          size={16}
-          className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
-        />
-        <input
-          type="text"
-          placeholder="Search room number..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="w-full rounded-lg border border-slate-300 py-2 pl-9 pr-3 text-sm outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
-        />
-      </div>
+      {/* 3D Isometric Room Cards Grid */}
+      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {filtered.map((room) => {
+          const style = statusStyles[room.status] || statusStyles.available;
+          const occupantsCount = room.occupants?.length || (room.status === 'occupied' ? 1 : 0);
+          return (
+            <div
+              key={room._id}
+              className={`card-depth-3d bg-gradient-to-b ${style.lightBg} p-5 relative overflow-hidden group hover:scale-[1.02] transition-transform duration-200 flex flex-col justify-between ${style.border}`}
+            >
+              {/* Top ambient highlight */}
+              <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-white/80 to-transparent" />
 
-      {/* Room Grid */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {filtered.map((room) => (
-          <div
-            key={room._id}
-            className={`group relative rounded-xl border bg-white p-5 shadow-sm transition-all hover:shadow-md ${
-              statusColors[room.status]
-                ? `border-l-4 ${statusColors[room.status].split(' ')[2] || 'border-slate-200'}`
-                : 'border-slate-200'
-            }`}
-          >
-            <div className="flex items-start justify-between">
-              <div className="flex items-center gap-2">
-                <BedDouble size={20} className="text-slate-400" />
-                <span className="text-lg font-bold text-slate-800">
-                  Room {room.roomNumber}
-                </span>
-              </div>
-              <span
-                className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium ${
-                  statusColors[room.status] || 'bg-slate-100 text-slate-600'
-                }`}
-              >
-                <span
-                  className={`h-1.5 w-1.5 rounded-full ${
-                    statusDot[room.status] || 'bg-slate-400'
-                  }`}
-                />
-                {room.status}
-              </span>
-            </div>
+              <div>
+                {/* Card Header */}
+                <div className="flex items-start justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="h-9 w-9 rounded-xl bg-white shadow-xs border border-slate-100 flex items-center justify-center text-slate-700 font-black text-sm">
+                      {room.floor}F
+                    </div>
+                    <div>
+                      <span className="text-lg font-black text-slate-800 tracking-tight">
+                        Room {room.roomNumber}
+                      </span>
+                      <p className="text-[10px] text-slate-400 font-semibold">{room.block || 'Block A'}</p>
+                    </div>
+                  </div>
+                  <span className={`pill-3d px-2.5 py-1 text-[11px] font-bold capitalize border ${style.badge}`}>
+                    <span className={`h-1.5 w-1.5 rounded-full mr-1.5 ${style.dot}`} />
+                    {room.status}
+                  </span>
+                </div>
 
-            <div className="mt-3 space-y-1 text-sm text-slate-600">
-              <p>
-                <span className="text-slate-400">Floor:</span> {room.floor}
-              </p>
-              <p>
-                <span className="text-slate-400">Type:</span>{' '}
-                <span className="capitalize">{room.type}</span>
-              </p>
-              <p>
-                <span className="text-slate-400">Capacity:</span>{' '}
-                {room.capacity}
-              </p>
-              <p>
-                <span className="text-slate-400">Rent:</span> PKR{' '}
-                {room.rent?.toLocaleString()}
-              </p>
-            </div>
+                {/* 3D Isometric Bed Slots Layout Visualizer */}
+                <div className="my-4 p-3 bg-white/80 backdrop-blur-xs rounded-xl border border-slate-200/80 shadow-inner">
+                  <div className="flex items-center justify-between text-[11px] text-slate-500 font-bold mb-2">
+                    <span>Bed Slots ({occupantsCount}/{room.capacity})</span>
+                    <span className="capitalize text-indigo-600">{room.type} Room</span>
+                  </div>
+                  <div className="grid grid-cols-3 gap-1.5">
+                    {Array.from({ length: room.capacity }).map((_, idx) => {
+                      const isOccupied = idx < occupantsCount;
+                      return (
+                        <div
+                          key={idx}
+                          className={`p-1.5 rounded-lg border text-center transition ${
+                            isOccupied
+                              ? 'bg-indigo-50 border-indigo-200 text-indigo-700 shadow-xs'
+                              : 'bg-slate-50 border-dashed border-slate-300 text-slate-400'
+                          }`}
+                        >
+                          <BedDouble size={14} className="mx-auto" />
+                          <span className="text-[9px] font-bold block mt-0.5">
+                            {isOccupied ? 'Occupied' : 'Vacant'}
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
 
-            {room.occupants?.length > 0 && (
-              <div className="mt-3 border-t border-slate-100 pt-3">
-                <p className="text-xs font-medium text-slate-400">
-                  Occupants:
-                </p>
-                <div className="mt-1 flex flex-wrap gap-1">
-                  {room.occupants.map((o, i) => (
-                    <span
-                      key={i}
-                      className="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-600"
-                    >
-                      {o}
+                {/* Specs */}
+                <div className="space-y-1.5 text-xs text-slate-600">
+                  <div className="flex items-center justify-between">
+                    <span className="text-slate-400 font-medium">Monthly Rent:</span>
+                    <span className="font-extrabold text-slate-800">
+                      PKR {room.rent?.toLocaleString()}
                     </span>
-                  ))}
+                  </div>
+                  {room.occupants?.length > 0 && (
+                    <div className="pt-2 border-t border-slate-100">
+                      <p className="text-[10px] font-bold uppercase text-slate-400 mb-1">Assigned:</p>
+                      <div className="flex flex-wrap gap-1">
+                        {room.occupants.map((occ, i) => (
+                          <span
+                            key={i}
+                            className="pill-3d bg-slate-100 text-slate-700 px-2 py-0.5 text-[10px] font-semibold border border-slate-200"
+                          >
+                            {occ}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
-            )}
 
-            {/* Actions */}
-            <div className="mt-4 flex gap-2 border-t border-slate-100 pt-3">
-              <button
-                onClick={() => openEdit(room)}
-                className="flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-xs font-medium text-indigo-600 hover:bg-indigo-50"
-              >
-                <Edit2 size={13} />
-                Edit
-              </button>
-              <button
-                onClick={() => handleDelete(room._id)}
-                className="flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-xs font-medium text-red-600 hover:bg-red-50"
-              >
-                <Trash2 size={13} />
-                Delete
-              </button>
+              {/* 3D Action Buttons */}
+              <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-end gap-2">
+                <button
+                  onClick={() => openEdit(room)}
+                  className="btn-3d btn-3d-slate px-2.5 py-1 text-[11px] flex items-center gap-1 font-semibold"
+                >
+                  <Edit2 size={12} />
+                  Edit
+                </button>
+                <button
+                  onClick={() => handleDelete(room._id)}
+                  className="btn-3d btn-3d-rose px-2.5 py-1 text-[11px] flex items-center gap-1 font-semibold"
+                >
+                  <Trash2 size={12} />
+                  Delete
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {filtered.length === 0 && (
-        <div className="mt-12 text-center text-slate-400">
-          <BedDouble size={48} className="mx-auto mb-3 opacity-40" />
-          <p>No rooms found</p>
+        <div className="card-depth-3d p-12 text-center text-slate-400">
+          <BedDouble size={48} className="mx-auto mb-3 opacity-40 text-indigo-400" />
+          <p className="text-sm font-semibold">No rooms match your search or filter</p>
         </div>
       )}
 
-      {/* Add/Edit Modal */}
+      {/* 3D Add / Edit Room Modal */}
       <Modal
         open={modalOpen}
         onClose={() => setModalOpen(false)}
-        title={editing ? 'Edit Room' : 'Add New Room'}
+        title={editing ? `Edit Room ${editing.roomNumber}` : 'Add New Room (3D Builder)'}
       >
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <label className="mb-1.5 block text-sm font-medium text-slate-700">
-                Room Number
-              </label>
+              <label className="mb-1 block text-xs font-bold text-slate-700">Room Number</label>
               <input
                 name="roomNumber"
                 required
                 value={form.roomNumber}
                 onChange={handleChange}
                 placeholder="e.g. 101"
-                className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+                className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-bold"
               />
             </div>
             <div>
-              <label className="mb-1.5 block text-sm font-medium text-slate-700">
-                Floor
-              </label>
+              <label className="mb-1 block text-xs font-bold text-slate-700">Floor Level</label>
               <input
                 name="floor"
                 type="number"
@@ -324,28 +416,24 @@ export default function Rooms() {
                 required
                 value={form.floor}
                 onChange={handleChange}
-                className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+                className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
               />
             </div>
             <div>
-              <label className="mb-1.5 block text-sm font-medium text-slate-700">
-                Type
-              </label>
+              <label className="mb-1 block text-xs font-bold text-slate-700">Room Classification</label>
               <select
                 name="type"
                 value={form.type}
                 onChange={handleChange}
-                className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+                className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
               >
-                <option value="single">Single</option>
-                <option value="double">Double</option>
-                <option value="triple">Triple</option>
+                <option value="single">Single Bed AC</option>
+                <option value="double">Double Sharing</option>
+                <option value="triple">Triple Dormitory</option>
               </select>
             </div>
             <div>
-              <label className="mb-1.5 block text-sm font-medium text-slate-700">
-                Capacity
-              </label>
+              <label className="mb-1 block text-xs font-bold text-slate-700">Bed Capacity</label>
               <input
                 name="capacity"
                 type="number"
@@ -353,13 +441,11 @@ export default function Rooms() {
                 required
                 value={form.capacity}
                 onChange={handleChange}
-                className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+                className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
               />
             </div>
             <div>
-              <label className="mb-1.5 block text-sm font-medium text-slate-700">
-                Rent (PKR)
-              </label>
+              <label className="mb-1 block text-xs font-bold text-slate-700">Monthly Rent (PKR)</label>
               <input
                 name="rent"
                 type="number"
@@ -367,39 +453,35 @@ export default function Rooms() {
                 required
                 value={form.rent}
                 onChange={handleChange}
-                className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+                className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-bold"
               />
             </div>
             <div>
-              <label className="mb-1.5 block text-sm font-medium text-slate-700">
-                Status
-              </label>
+              <label className="mb-1 block text-xs font-bold text-slate-700">Operational Status</label>
               <select
                 name="status"
                 value={form.status}
                 onChange={handleChange}
-                className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+                className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
               >
                 <option value="available">Available</option>
                 <option value="occupied">Occupied</option>
-                <option value="maintenance">Maintenance</option>
+                <option value="maintenance">Under Maintenance</option>
                 <option value="reserved">Reserved</option>
               </select>
             </div>
           </div>
-          <div className="flex justify-end gap-3 pt-2">
+
+          <div className="flex justify-end gap-3 pt-3 border-t border-slate-100">
             <button
               type="button"
               onClick={() => setModalOpen(false)}
-              className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+              className="btn-3d btn-3d-slate px-4 py-2 text-xs"
             >
               Cancel
             </button>
-            <button
-              type="submit"
-              className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700"
-            >
-              {editing ? 'Update Room' : 'Add Room'}
+            <button type="submit" className="btn-3d btn-3d-indigo px-5 py-2 text-xs">
+              {editing ? 'Update Room' : 'Save Room'}
             </button>
           </div>
         </form>

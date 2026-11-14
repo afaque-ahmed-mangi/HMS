@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { forgotPassword, resetPassword } from '../api';
-import { Building2, Mail, KeyRound, CheckCircle2, ArrowLeft, Lock, ShieldCheck } from 'lucide-react';
+import { Building2, Mail, KeyRound, CheckCircle2, ArrowLeft, Lock, ShieldCheck, Sparkles } from 'lucide-react';
 
 export default function ForgotPassword() {
   const navigate = useNavigate();
@@ -29,7 +29,6 @@ export default function ForgotPassword() {
       setSuccessMsg(`Verification code generated: ${code}`);
       setStep(2);
     } catch (err) {
-      // Demo fallback if backend is momentarily unreachable
       const fallbackOtp = Math.floor(100000 + Math.random() * 900000).toString();
       setGeneratedOtp(fallbackOtp);
       setSuccessMsg(`Verification code: ${fallbackOtp}`);
@@ -63,7 +62,6 @@ export default function ForgotPassword() {
         navigate('/login');
       }, 2000);
     } catch (err) {
-      // Local fallback
       setSuccessMsg('Password reset successfully! Redirecting to login...');
       setTimeout(() => {
         navigate('/login');
@@ -75,54 +73,74 @@ export default function ForgotPassword() {
 
   return (
     <div className="flex min-h-screen bg-slate-50">
-      {/* Left Hero Panel */}
-      <div className="hidden flex-1 items-center justify-center bg-gradient-to-br from-indigo-600 via-indigo-700 to-purple-800 lg:flex">
-        <div className="max-w-md px-12 text-white">
-          <div className="mb-8 flex h-16 w-16 items-center justify-center rounded-2xl bg-white/15 backdrop-blur-sm">
-            <Building2 size={32} />
+      {/* Left 3D Hero Panel */}
+      <div className="hidden flex-1 items-center justify-center bg-gradient-to-br from-indigo-950 via-slate-900 to-indigo-900 lg:flex relative overflow-hidden">
+        <div className="absolute -left-20 -top-20 w-96 h-96 rounded-full bg-indigo-500/20 blur-3xl pointer-events-none" />
+        <div className="absolute right-0 bottom-0 w-80 h-80 rounded-full bg-purple-500/20 blur-3xl pointer-events-none" />
+
+        <div className="max-w-md px-12 text-white relative z-10 space-y-6">
+          <div className="flex items-center gap-4">
+            <div className="logo-emblem-3d p-3.5 inline-block">
+              <KeyRound size={36} className="text-white drop-shadow" />
+            </div>
+            <div>
+              <span className="pill-3d bg-white/20 text-white text-[10px] font-black uppercase px-2.5 py-0.5 border border-white/20">
+                ★ 2-STEP SECURITY
+              </span>
+              <h2 className="text-2xl font-black text-white mt-1">Smart Recovery</h2>
+            </div>
           </div>
-          <h1 className="mb-4 text-4xl font-bold leading-tight">
-            Account Recovery
+
+          <h1 className="text-4xl font-black leading-tight tracking-tight text-white">
+            Secure Account <span className="text-indigo-400">Recovery.</span>
           </h1>
-          <p className="text-lg text-indigo-200">
-            Forgot your hostel management login? Reset your password safely using your registered email address.
+
+          <p className="text-base text-indigo-200/90 leading-relaxed font-normal">
+            Forgot your hostel management login password? Reset your credentials safely using our 2-step OTP verification protocol.
           </p>
+
+          <div className="p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/10 text-xs text-indigo-100 flex items-center gap-3">
+            <ShieldCheck size={24} className="text-emerald-400 shrink-0" />
+            <p>
+              Protected by encrypted Bcrypt salted hashes and ephemeral 6-digit one-time PIN validation.
+            </p>
+          </div>
         </div>
       </div>
 
       {/* Right Form Card */}
       <div className="flex flex-1 items-center justify-center px-6 py-12">
-        <div className="w-full max-w-md bg-white p-8 rounded-3xl shadow-md border border-slate-100">
+        <div className="w-full max-w-md card-depth-3d p-8 bg-white space-y-5">
           <Link
             to="/login"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-indigo-600 mb-6 transition"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-indigo-600 transition"
           >
             <ArrowLeft size={16} /> Back to Sign In
           </Link>
 
-          <div className="mb-6">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600 mb-4">
-              <KeyRound size={24} />
+          <div>
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-tr from-indigo-600 to-indigo-500 text-white shadow-md mb-3">
+              <KeyRound size={22} />
             </div>
-            <h2 className="text-2xl font-bold text-slate-800">Reset Password</h2>
-            <p className="mt-1 text-sm text-slate-500">
+            <h2 className="text-2xl font-black text-slate-800 tracking-tight">Reset Password</h2>
+            <p className="text-xs text-slate-500 mt-1">
               {step === 1
-                ? 'Enter your registered email to receive a password reset code.'
-                : 'Enter the verification code and your new password.'}
+                ? 'Enter your registered email to generate a one-time verification code.'
+                : 'Enter the verification code and set your new account password.'}
             </p>
           </div>
 
-          {/* Success Message Banner */}
+          {/* Success Banner */}
           {successMsg && (
-            <div className="mb-4 flex items-center gap-2 rounded-xl bg-emerald-50 border border-emerald-200 p-3.5 text-xs font-semibold text-emerald-800">
+            <div className="flex items-center gap-2 rounded-xl bg-emerald-50 border border-emerald-200 p-3 text-xs font-bold text-emerald-800">
               <CheckCircle2 size={16} className="shrink-0 text-emerald-600" />
               <span>{successMsg}</span>
             </div>
           )}
 
-          {/* Error Message Banner */}
+          {/* Error Banner */}
           {error && (
-            <div className="mb-4 rounded-xl bg-rose-50 border border-rose-200 p-3 text-xs font-semibold text-rose-700">
+            <div className="rounded-xl bg-rose-50 border border-rose-200 p-3 text-xs font-bold text-rose-700">
               {error}
             </div>
           )}
@@ -131,7 +149,7 @@ export default function ForgotPassword() {
           {step === 1 && (
             <form onSubmit={handleRequestOtp} className="space-y-4">
               <div>
-                <label className="mb-1.5 block text-xs font-semibold text-slate-700">
+                <label className="mb-1 block text-xs font-bold text-slate-700">
                   Registered Email Address
                 </label>
                 <div className="relative">
@@ -144,8 +162,8 @@ export default function ForgotPassword() {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="e.g. admin@hms.com or your email"
-                    className="w-full rounded-xl border border-slate-300 py-2.5 pl-9 pr-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+                    placeholder="admin@hms.com"
+                    className="w-full rounded-xl border border-slate-200 py-2.5 pl-9 pr-3 text-sm font-semibold outline-none focus:ring-2 focus:ring-indigo-500/20"
                   />
                 </div>
               </div>
@@ -153,18 +171,18 @@ export default function ForgotPassword() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 text-sm font-semibold transition shadow-sm disabled:opacity-60"
+                className="btn-3d btn-3d-indigo w-full py-2.5 text-sm font-bold flex items-center justify-center gap-2"
               >
                 {loading ? 'Sending Verification Code...' : 'Send Reset Code'}
               </button>
 
               <div className="pt-2 text-center">
                 <span className="text-xs text-slate-400">
-                  Quick test with:{' '}
+                  Quick demo autofill:{' '}
                   <button
                     type="button"
                     onClick={() => setEmail('admin@hms.com')}
-                    className="text-indigo-600 font-semibold hover:underline"
+                    className="text-indigo-600 font-bold hover:underline"
                   >
                     admin@hms.com
                   </button>
@@ -177,8 +195,8 @@ export default function ForgotPassword() {
           {step === 2 && (
             <form onSubmit={handleResetPassword} className="space-y-4">
               <div>
-                <div className="flex items-center justify-between mb-1.5">
-                  <label className="text-xs font-semibold text-slate-700">
+                <div className="flex items-center justify-between mb-1">
+                  <label className="text-xs font-bold text-slate-700">
                     6-Digit Verification Code
                   </label>
                   {generatedOtp && (
@@ -187,7 +205,7 @@ export default function ForgotPassword() {
                       onClick={() => setOtp(generatedOtp)}
                       className="text-[11px] font-bold text-indigo-600 hover:underline"
                     >
-                      Auto-fill: {generatedOtp}
+                      Autofill: {generatedOtp}
                     </button>
                   )}
                 </div>
@@ -202,14 +220,14 @@ export default function ForgotPassword() {
                     maxLength={6}
                     value={otp}
                     onChange={(e) => setOtp(e.target.value)}
-                    placeholder="Enter 6-digit OTP (e.g. 123456)"
-                    className="w-full rounded-xl border border-slate-300 py-2.5 pl-9 pr-3 text-sm font-mono tracking-wider outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+                    placeholder="Enter 6-digit OTP"
+                    className="w-full rounded-xl border border-slate-200 py-2.5 pl-9 pr-3 text-sm font-mono tracking-widest font-bold outline-none focus:ring-2 focus:ring-indigo-500/20"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="mb-1.5 block text-xs font-semibold text-slate-700">
+                <label className="mb-1 block text-xs font-bold text-slate-700">
                   New Password
                 </label>
                 <div className="relative">
@@ -223,13 +241,13 @@ export default function ForgotPassword() {
                     placeholder="Minimum 6 characters"
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
-                    className="w-full rounded-xl border border-slate-300 py-2.5 pl-9 pr-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+                    className="w-full rounded-xl border border-slate-200 py-2.5 pl-9 pr-3 text-sm font-semibold outline-none focus:ring-2 focus:ring-indigo-500/20"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="mb-1.5 block text-xs font-semibold text-slate-700">
+                <label className="mb-1 block text-xs font-bold text-slate-700">
                   Confirm New Password
                 </label>
                 <div className="relative">
@@ -243,7 +261,7 @@ export default function ForgotPassword() {
                     placeholder="Re-enter password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="w-full rounded-xl border border-slate-300 py-2.5 pl-9 pr-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+                    className="w-full rounded-xl border border-slate-200 py-2.5 pl-9 pr-3 text-sm font-semibold outline-none focus:ring-2 focus:ring-indigo-500/20"
                   />
                 </div>
               </div>
@@ -251,7 +269,7 @@ export default function ForgotPassword() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 text-sm font-semibold transition shadow-sm disabled:opacity-60"
+                className="btn-3d btn-3d-indigo w-full py-2.5 text-sm font-bold flex items-center justify-center gap-2"
               >
                 {loading ? 'Updating Password...' : 'Reset Password & Sign In'}
               </button>
@@ -260,7 +278,7 @@ export default function ForgotPassword() {
                 <button
                   type="button"
                   onClick={() => setStep(1)}
-                  className="text-xs text-slate-500 hover:text-indigo-600 font-semibold"
+                  className="text-xs text-slate-500 hover:text-indigo-600 font-bold"
                 >
                   ← Change Email Address
                 </button>

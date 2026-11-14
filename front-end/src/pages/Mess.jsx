@@ -1,5 +1,17 @@
 import { useState } from 'react';
-import { Utensils, Calendar, Clock, DollarSign, Check, Plus, AlertCircle } from 'lucide-react';
+import {
+  Utensils,
+  Calendar,
+  Clock,
+  DollarSign,
+  Check,
+  Plus,
+  AlertCircle,
+  Coffee,
+  Sun,
+  Moon,
+  Sparkles
+} from 'lucide-react';
 import Modal from '../components/Modal';
 
 export default function Mess() {
@@ -37,62 +49,100 @@ export default function Mess() {
   };
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
+    <div className="space-y-6 pb-8">
+      {/* 3D Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold text-slate-800 flex items-center gap-2">
-            <Utensils className="text-indigo-600" /> Mess & Dining Management
-          </h1>
-          <p className="text-slate-500 text-sm">
-            Weekly meal schedules, resident meal skipping requests, and kitchen counts
-          </p>
+        <div className="flex items-center gap-3">
+          <div className="h-11 w-11 rounded-2xl bg-gradient-to-tr from-amber-600 to-orange-400 text-white flex items-center justify-center shadow-[0_8px_16px_rgba(245,158,11,0.35)] transform-gpu hover:rotate-6 transition">
+            <Utensils size={24} />
+          </div>
+          <div>
+            <h1 className="text-2xl font-black text-slate-800 tracking-tight flex items-center gap-2">
+              Mess & Dining Management
+              <span className="pill-3d bg-amber-50 text-amber-700 text-xs px-2.5 py-0.5 border border-amber-200">
+                3D Full Board
+              </span>
+            </h1>
+            <p className="text-xs text-slate-500 mt-0.5">
+              Weekly meal schedules, resident meal skipping requests, and kitchen headcounts
+            </p>
+          </div>
         </div>
+
         <button
           onClick={() => setIsSkipModalOpen(true)}
-          className="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2.5 rounded-xl font-medium shadow-sm transition"
+          className="btn-3d btn-3d-amber text-xs px-4 py-2.5 flex items-center gap-2 self-start sm:self-auto"
         >
-          <Plus size={18} /> Request Meal Skip (Deduction)
+          <Plus size={16} /> Request Meal Skip (Deduction)
         </button>
       </div>
 
-      {/* KPI Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
-          <div className="text-xs uppercase font-bold text-slate-400">Today's Breakfast Count</div>
-          <div className="text-2xl font-bold text-slate-800 mt-1">118 / 125</div>
-          <div className="text-xs text-emerald-600 mt-1">7 skipped</div>
+      {/* 3D KPI Cards */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="card-depth-3d p-4 rounded-xl flex items-center justify-between">
+          <div>
+            <div className="text-[11px] uppercase font-bold text-slate-400 flex items-center gap-1">
+              <Coffee size={13} className="text-amber-500" /> Breakfast
+            </div>
+            <div className="text-2xl font-black text-slate-800 mt-1">118 / 125</div>
+            <div className="text-[11px] text-emerald-600 font-semibold mt-0.5">7 skipping</div>
+          </div>
+          <div className="h-10 w-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold">
+            ☕
+          </div>
         </div>
-        <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
-          <div className="text-xs uppercase font-bold text-slate-400">Today's Lunch Count</div>
-          <div className="text-2xl font-bold text-slate-800 mt-1">104 / 125</div>
-          <div className="text-xs text-emerald-600 mt-1">21 skipped</div>
+
+        <div className="card-depth-3d p-4 rounded-xl flex items-center justify-between">
+          <div>
+            <div className="text-[11px] uppercase font-bold text-slate-400 flex items-center gap-1">
+              <Sun size={13} className="text-orange-500" /> Lunch
+            </div>
+            <div className="text-2xl font-black text-slate-800 mt-1">104 / 125</div>
+            <div className="text-[11px] text-emerald-600 font-semibold mt-0.5">21 skipping</div>
+          </div>
+          <div className="h-10 w-10 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center font-bold">
+            🍲
+          </div>
         </div>
-        <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
-          <div className="text-xs uppercase font-bold text-slate-400">Today's Dinner Expected</div>
-          <div className="text-2xl font-bold text-indigo-600 mt-1">122 / 125</div>
-          <div className="text-xs text-slate-400 mt-1">Chicken Biryani & Raita</div>
+
+        <div className="card-depth-3d p-4 rounded-xl flex items-center justify-between">
+          <div>
+            <div className="text-[11px] uppercase font-bold text-slate-400 flex items-center gap-1">
+              <Moon size={13} className="text-indigo-500" /> Dinner
+            </div>
+            <div className="text-2xl font-black text-indigo-600 mt-1">122 / 125</div>
+            <div className="text-[11px] text-slate-400 font-semibold mt-0.5">Biryani Special</div>
+          </div>
+          <div className="h-10 w-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold">
+            🍗
+          </div>
         </div>
-        <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
-          <div className="text-xs uppercase font-bold text-slate-400">Monthly Mess Fee Head</div>
-          <div className="text-2xl font-bold text-emerald-600 mt-1">PKR 8,500</div>
-          <div className="text-xs text-slate-400 mt-1">Includes 3 meals daily</div>
+
+        <div className="card-depth-3d p-4 rounded-xl flex items-center justify-between">
+          <div>
+            <div className="text-[11px] uppercase font-bold text-slate-400">Monthly Mess Head</div>
+            <div className="text-2xl font-black text-emerald-600 mt-1">PKR 8,500</div>
+            <div className="text-[11px] text-slate-400 font-semibold mt-0.5">All 3 meals daily</div>
+          </div>
+          <div className="h-10 w-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
+            💳
+          </div>
         </div>
       </div>
 
-      {/* Weekly Menu Grid */}
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
-        <div className="p-4 border-b border-slate-100 flex items-center justify-between">
-          <h2 className="font-bold text-slate-800 flex items-center gap-2">
-            <Calendar size={18} className="text-indigo-600" /> Weekly Standard Menu
+      {/* 3D Weekly Menu */}
+      <div className="card-depth-3d overflow-hidden">
+        <div className="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/60">
+          <h2 className="font-extrabold text-slate-800 flex items-center gap-2 text-sm">
+            <Calendar size={18} className="text-indigo-600" /> Weekly Standard Mess Menu
           </h2>
-          <span className="text-xs bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full font-semibold">
+          <span className="pill-3d bg-indigo-50 text-indigo-700 text-xs px-3 py-1 font-bold border border-indigo-200">
             Standard Full Board
           </span>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm text-slate-600">
-            <thead className="bg-slate-50 text-slate-700 font-semibold uppercase text-xs border-b border-slate-100">
+            <thead className="bg-slate-100/70 text-slate-700 font-bold uppercase text-[11px] tracking-wider border-b border-slate-200/80">
               <tr>
                 <th className="px-6 py-4">Day</th>
                 <th className="px-6 py-4">Breakfast (07:30 – 09:30 AM)</th>
@@ -102,11 +152,15 @@ export default function Mess() {
             </thead>
             <tbody className="divide-y divide-slate-100">
               {weeklyMenu.map((m) => (
-                <tr key={m.day} className="hover:bg-slate-50/60 transition">
-                  <td className="px-6 py-4 font-bold text-indigo-700">{m.day}</td>
-                  <td className="px-6 py-4 text-xs text-slate-700">{m.breakfast}</td>
-                  <td className="px-6 py-4 text-xs text-slate-700">{m.lunch}</td>
-                  <td className="px-6 py-4 text-xs font-semibold text-slate-800">{m.dinner}</td>
+                <tr key={m.day} className="hover:bg-indigo-50/30 transition">
+                  <td className="px-6 py-4 font-black text-indigo-700">
+                    <span className="pill-3d bg-indigo-50 px-2.5 py-1 text-xs border border-indigo-200">
+                      {m.day}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 text-xs text-slate-700 font-medium">{m.breakfast}</td>
+                  <td className="px-6 py-4 text-xs text-slate-700 font-medium">{m.lunch}</td>
+                  <td className="px-6 py-4 text-xs font-bold text-slate-800">{m.dinner}</td>
                 </tr>
               ))}
             </tbody>
@@ -114,14 +168,16 @@ export default function Mess() {
         </div>
       </div>
 
-      {/* Meal Skipping Requests */}
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
-        <div className="p-4 border-b border-slate-100">
-          <h2 className="font-bold text-slate-800">Recent Meal Skipping / Bill Adjustment Requests</h2>
+      {/* 3D Meal Skipping Requests Table */}
+      <div className="card-depth-3d overflow-hidden">
+        <div className="p-4 border-b border-slate-100 bg-slate-50/60">
+          <h2 className="font-extrabold text-slate-800 text-sm">
+            Recent Meal Skipping / Bill Adjustment Requests
+          </h2>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm text-slate-600">
-            <thead className="bg-slate-50 text-slate-700 font-semibold uppercase text-xs border-b border-slate-100">
+            <thead className="bg-slate-100/70 text-slate-700 font-bold uppercase text-[11px] tracking-wider border-b border-slate-200/80">
               <tr>
                 <th className="px-6 py-4">Resident</th>
                 <th className="px-6 py-4">Room</th>
@@ -132,13 +188,17 @@ export default function Mess() {
             </thead>
             <tbody className="divide-y divide-slate-100">
               {mealSkippingRequests.map((r) => (
-                <tr key={r._id} className="hover:bg-slate-50/60 transition">
-                  <td className="px-6 py-4 font-semibold text-slate-800">{r.resident}</td>
-                  <td className="px-6 py-4 font-mono text-xs">Room {r.room}</td>
-                  <td className="px-6 py-4 text-xs text-slate-600">{r.date}</td>
-                  <td className="px-6 py-4 font-medium text-xs text-indigo-600">{r.meal}</td>
+                <tr key={r._id} className="hover:bg-indigo-50/30 transition">
+                  <td className="px-6 py-4 font-bold text-slate-800">{r.resident}</td>
                   <td className="px-6 py-4">
-                    <span className="inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                    <span className="font-mono text-xs font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-100">
+                      Room {r.room}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 text-xs text-slate-600 font-medium">{r.date}</td>
+                  <td className="px-6 py-4 font-bold text-xs text-slate-800">{r.meal}</td>
+                  <td className="px-6 py-4">
+                    <span className="pill-3d px-2.5 py-0.5 text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
                       PKR 150 Deducted in Invoice
                     </span>
                   </td>
@@ -149,7 +209,7 @@ export default function Mess() {
         </div>
       </div>
 
-      {/* Modal */}
+      {/* 3D Skip Modal */}
       {isSkipModalOpen && (
         <Modal
           isOpen={isSkipModalOpen}
@@ -159,46 +219,46 @@ export default function Mess() {
           <form onSubmit={handleSkipSubmit} className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-600 mb-1">Resident Name</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Resident Name</label>
                 <input
                   type="text"
                   required
                   placeholder="Ali Raza"
                   value={skipForm.resident}
                   onChange={(e) => setSkipForm({ ...skipForm, resident: e.target.value })}
-                  className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none"
+                  className="w-full px-3 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
                 />
               </div>
               <div>
-                <label className="block text-xs font-semibold text-slate-600 mb-1">Room No.</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Room No.</label>
                 <input
                   type="text"
                   required
                   placeholder="101"
                   value={skipForm.room}
                   onChange={(e) => setSkipForm({ ...skipForm, room: e.target.value })}
-                  className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none"
+                  className="w-full px-3 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
                 />
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-600 mb-1">Date of Skip</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Date of Skip</label>
                 <input
                   type="date"
                   required
                   value={skipForm.date}
                   onChange={(e) => setSkipForm({ ...skipForm, date: e.target.value })}
-                  className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none"
+                  className="w-full px-3 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
                 />
               </div>
               <div>
-                <label className="block text-xs font-semibold text-slate-600 mb-1">Meal to Skip</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Meal to Skip</label>
                 <select
                   value={skipForm.meal}
                   onChange={(e) => setSkipForm({ ...skipForm, meal: e.target.value })}
-                  className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none"
+                  className="w-full px-3 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
                 >
                   <option value="Breakfast">Breakfast only (Rs. 80)</option>
                   <option value="Lunch">Lunch only (Rs. 150)</option>
@@ -208,18 +268,15 @@ export default function Mess() {
               </div>
             </div>
 
-            <div className="flex justify-end gap-2 pt-4 border-t border-slate-100">
+            <div className="flex justify-end gap-3 pt-4 border-t border-slate-100">
               <button
                 type="button"
                 onClick={() => setIsSkipModalOpen(false)}
-                className="px-4 py-2 border border-slate-200 rounded-xl text-xs font-semibold text-slate-600"
+                className="btn-3d btn-3d-slate px-4 py-2 text-xs"
               >
                 Cancel
               </button>
-              <button
-                type="submit"
-                className="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold transition"
-              >
+              <button type="submit" className="btn-3d btn-3d-amber px-5 py-2 text-xs">
                 Submit Request
               </button>
             </div>

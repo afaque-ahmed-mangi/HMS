@@ -260,43 +260,52 @@ export default function Residents() {
   });
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
+    <div className="space-y-6 pb-8">
+      {/* 3D Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold text-slate-800 flex items-center gap-2">
-            <Users className="text-indigo-600" /> Residents Directory
-          </h1>
-          <p className="text-slate-500 text-sm">
-            Complete student lifecycle: Application, admission, bed allocation, and profile records
-          </p>
+        <div className="flex items-center gap-3">
+          <div className="h-11 w-11 rounded-2xl bg-gradient-to-tr from-indigo-600 to-indigo-400 text-white flex items-center justify-center shadow-[0_8px_16px_rgba(79,70,229,0.35)] transform-gpu hover:rotate-6 transition">
+            <Users size={24} />
+          </div>
+          <div>
+            <h1 className="text-2xl font-black text-slate-800 tracking-tight flex items-center gap-2">
+              Residents Directory
+              <span className="pill-3d bg-indigo-50 text-indigo-700 text-xs px-2.5 py-0.5 border border-indigo-200">
+                3D Student Hub
+              </span>
+            </h1>
+            <p className="text-xs text-slate-500 mt-0.5">
+              Complete student lifecycle: Application, admission, bed allocation, and profile records
+            </p>
+          </div>
         </div>
+
         <button
           onClick={() => handleOpenModal()}
-          className="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2.5 rounded-xl font-medium shadow-sm transition"
+          className="btn-3d btn-3d-indigo text-xs px-4 py-2.5 flex items-center gap-2 self-start sm:self-auto"
         >
-          <UserPlus size={18} /> Add New Resident
+          <UserPlus size={16} /> Add New Resident
         </button>
       </div>
 
-      {/* Filters */}
-      <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 flex flex-wrap gap-4 items-center justify-between">
+      {/* 3D Search & Status Filter */}
+      <div className="card-depth-3d p-3 rounded-2xl flex flex-wrap gap-3 items-center justify-between bg-slate-50/60">
         <div className="flex-1 min-w-[260px]">
           <input
             type="text"
-            placeholder="Search by name, CNIC, phone, university..."
+            placeholder="Search by student name, CNIC, mobile, university..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full px-4 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 text-sm"
+            className="w-full bg-white px-3.5 py-2 border border-slate-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/20 shadow-xs"
           />
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <select
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value)}
-            className="px-3 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+            className="bg-white px-3 py-2 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 shadow-xs"
           >
-            <option value="all">All Statuses</option>
+            <option value="all">All Resident Statuses</option>
             <option value="active">Active Residents</option>
             <option value="pending">Under Review</option>
             <option value="checked-out">Checked Out</option>
@@ -304,11 +313,11 @@ export default function Residents() {
         </div>
       </div>
 
-      {/* Directory Table */}
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+      {/* 3D Directory Table */}
+      <div className="card-depth-3d overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm text-slate-600">
-            <thead className="bg-slate-50 text-slate-700 font-semibold uppercase text-xs border-b border-slate-100">
+            <thead className="bg-slate-100/70 text-slate-700 font-bold uppercase text-[11px] tracking-wider border-b border-slate-200/80">
               <tr>
                 <th className="px-6 py-4">Student Profile</th>
                 <th className="px-6 py-4">Institution / College</th>
@@ -321,20 +330,20 @@ export default function Residents() {
             </thead>
             <tbody className="divide-y divide-slate-100">
               {filtered.map((r) => (
-                <tr key={r._id} className="hover:bg-slate-50/60 transition">
+                <tr key={r._id} className="hover:bg-indigo-50/30 transition">
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
-                      <div className="h-10 w-10 rounded-xl bg-indigo-50 text-indigo-700 font-bold flex items-center justify-center">
+                      <div className="h-10 w-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-indigo-500 text-white font-bold flex items-center justify-center shadow-xs">
                         {r.name.charAt(0)}
                       </div>
                       <div>
-                        <div className="font-semibold text-slate-800">{r.name}</div>
+                        <div className="font-bold text-slate-800">{r.name}</div>
                         <div className="text-xs text-slate-400">{r.email}</div>
                       </div>
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="font-medium text-slate-800 text-xs flex items-center gap-1">
+                    <div className="font-bold text-slate-800 text-xs flex items-center gap-1">
                       <GraduationCap size={13} className="text-indigo-600" /> {r.institution || 'University'}
                     </div>
                     <div className="text-xs text-slate-400 mt-0.5">
@@ -342,30 +351,30 @@ export default function Residents() {
                     </div>
                   </td>
                   <td className="px-6 py-4 space-y-1">
-                    <div className="text-xs font-mono font-medium text-slate-700">{r.cnic || 'N/A'}</div>
+                    <div className="text-xs font-mono font-bold text-slate-700">{r.cnic || 'N/A'}</div>
                     <div className="flex items-center gap-1.5 text-xs text-slate-500">
                       <Phone size={12} /> {r.phone}
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-indigo-50 text-indigo-700 font-medium text-xs">
-                      <BedDouble size={14} />
+                    <span className="pill-3d px-2.5 py-1 bg-indigo-50 text-indigo-700 font-bold text-xs border border-indigo-200">
+                      <BedDouble size={14} className="mr-1 inline" />
                       {r.room
                         ? `Room ${r.room.roomNumber || '101'} - ${r.room.block || 'Block A'} (${r.room.bed || 'Bed 1'})`
                         : 'Unassigned'}
                     </span>
                   </td>
                   <td className="px-6 py-4 text-xs">
-                    <div className="font-semibold text-slate-700">{r.guardianName || 'N/A'}</div>
+                    <div className="font-bold text-slate-700">{r.guardianName || 'N/A'}</div>
                     <div className="text-slate-400">{r.guardianPhone || ''}</div>
                   </td>
                   <td className="px-6 py-4">
                     <span
-                      className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold capitalize ${
+                      className={`pill-3d px-2.5 py-0.5 text-xs font-bold capitalize ${
                         r.status === 'active'
-                          ? 'bg-emerald-50 text-emerald-600 border border-emerald-200'
+                          ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                           : r.status === 'pending'
-                          ? 'bg-amber-50 text-amber-600 border border-amber-200'
+                          ? 'bg-amber-50 text-amber-700 border border-amber-200'
                           : 'bg-slate-100 text-slate-600 border border-slate-200'
                       }`}
                     >
@@ -375,17 +384,17 @@ export default function Residents() {
                   <td className="px-6 py-4 text-right space-x-1">
                     <button
                       onClick={() => handleOpenModal(r)}
-                      className="p-1.5 hover:bg-slate-100 rounded-lg text-slate-600 hover:text-indigo-600 transition"
+                      className="btn-3d btn-3d-slate p-1.5 text-slate-700 inline-block"
                       title="Edit Resident"
                     >
-                      <Edit size={16} />
+                      <Edit size={14} />
                     </button>
                     <button
                       onClick={() => handleDelete(r._id)}
-                      className="p-1.5 hover:bg-red-50 rounded-lg text-slate-600 hover:text-red-600 transition"
+                      className="btn-3d btn-3d-rose p-1.5 inline-block"
                       title="Delete Resident"
                     >
-                      <Trash2 size={16} />
+                      <Trash2 size={14} />
                     </button>
                   </td>
                 </tr>

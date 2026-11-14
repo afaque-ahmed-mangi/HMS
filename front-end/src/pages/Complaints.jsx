@@ -1,5 +1,19 @@
 import { useState } from 'react';
-import { Wrench, Plus, CheckCircle, Clock, AlertTriangle, MessageSquare, Star } from 'lucide-react';
+import {
+  Wrench,
+  Plus,
+  CheckCircle,
+  Clock,
+  AlertTriangle,
+  MessageSquare,
+  Star,
+  Zap,
+  Droplet,
+  Wifi,
+  Hammer,
+  ShieldAlert,
+  Sparkles
+} from 'lucide-react';
 import Modal from '../components/Modal';
 
 export default function Complaints() {
@@ -10,7 +24,7 @@ export default function Complaints() {
       resident: 'Ali Raza',
       room: '101 (Block A)',
       category: 'Electrical',
-      title: 'AC unit cooling low & fan rattling',
+      title: 'AC unit cooling low & fan rattling sound',
       priority: 'high',
       status: 'in_progress',
       assignedTo: 'Electrician (Muhammad Shafiq)',
@@ -22,7 +36,7 @@ export default function Complaints() {
       resident: 'Zainab Bibi',
       room: '201 (Block B)',
       category: 'Plumbing',
-      title: 'Bathroom tap water leakage',
+      title: 'Bathroom tap water leakage & low pressure',
       priority: 'medium',
       status: 'open',
       assignedTo: 'Plumber (TBD)',
@@ -47,7 +61,7 @@ export default function Complaints() {
       resident: 'Bilal Ahmed',
       room: '204 (Block A)',
       category: 'Carpentry',
-      title: 'Wardrobe door hinge broken',
+      title: 'Wardrobe door hinge broken & lock stuck',
       priority: 'medium',
       status: 'closed',
       assignedTo: 'Hostel Maintenance Staff',
@@ -88,60 +102,105 @@ export default function Complaints() {
 
   const filtered = complaints.filter((c) => filter === 'all' || c.status === filter);
 
+  const getCategoryIcon = (category) => {
+    switch (category) {
+      case 'Electrical':
+        return <Zap size={14} className="text-amber-500" />;
+      case 'Plumbing':
+        return <Droplet size={14} className="text-blue-500" />;
+      case 'Wi-Fi / Internet':
+        return <Wifi size={14} className="text-indigo-500" />;
+      default:
+        return <Hammer size={14} className="text-slate-500" />;
+    }
+  };
+
   return (
-    <div className="space-y-6">
-      {/* Header */}
+    <div className="space-y-6 pb-8">
+      {/* 3D Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold text-slate-800 flex items-center gap-2">
-            <Wrench className="text-indigo-600" /> Maintenance & Complaints
-          </h1>
-          <p className="text-slate-500 text-sm">
-            Track student service requests, assign staff technicians, and verify turnaround times
-          </p>
+        <div className="flex items-center gap-3">
+          <div className="h-11 w-11 rounded-2xl bg-gradient-to-tr from-amber-500 to-rose-500 text-white flex items-center justify-center shadow-[0_8px_16px_rgba(245,158,11,0.35)] transform-gpu hover:rotate-6 transition">
+            <Wrench size={24} />
+          </div>
+          <div>
+            <h1 className="text-2xl font-black text-slate-800 tracking-tight flex items-center gap-2">
+              Maintenance & Complaints
+              <span className="pill-3d bg-amber-50 text-amber-700 text-xs px-2.5 py-0.5 border border-amber-200">
+                3D Ticket Hub
+              </span>
+            </h1>
+            <p className="text-xs text-slate-500 mt-0.5">
+              Track student service requests, assign staff technicians, and verify turnaround times
+            </p>
+          </div>
         </div>
+
         <button
           onClick={() => setIsModalOpen(true)}
-          className="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2.5 rounded-xl font-medium shadow-sm transition"
+          className="btn-3d btn-3d-indigo text-xs px-4 py-2.5 flex items-center gap-2 self-start sm:self-auto"
         >
-          <Plus size={18} /> Raise Maintenance Ticket
+          <Plus size={16} /> Raise Ticket
         </button>
       </div>
 
-      {/* KPI Cards */}
+      {/* 3D Metrics Grid */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
-          <div className="text-xs uppercase font-bold text-slate-400">Total Tickets</div>
-          <div className="text-2xl font-bold text-slate-800 mt-1">{complaints.length}</div>
-        </div>
-        <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
-          <div className="text-xs uppercase font-bold text-amber-500">Open & In Progress</div>
-          <div className="text-2xl font-bold text-amber-600 mt-1">
-            {complaints.filter((c) => c.status === 'open' || c.status === 'in_progress').length}
+        <div className="card-depth-3d p-4 rounded-xl flex items-center justify-between">
+          <div>
+            <div className="text-[11px] uppercase font-bold text-slate-400">Total Logged</div>
+            <div className="text-2xl font-black text-slate-800 mt-1">{complaints.length}</div>
+          </div>
+          <div className="h-10 w-10 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center font-bold">
+            📋
           </div>
         </div>
-        <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
-          <div className="text-xs uppercase font-bold text-emerald-500">Resolved / Closed</div>
-          <div className="text-2xl font-bold text-emerald-600 mt-1">
-            {complaints.filter((c) => c.status === 'resolved' || c.status === 'closed').length}
+
+        <div className="card-depth-3d p-4 rounded-xl flex items-center justify-between">
+          <div>
+            <div className="text-[11px] uppercase font-bold text-amber-500">In Progress</div>
+            <div className="text-2xl font-black text-amber-600 mt-1">
+              {complaints.filter((c) => c.status === 'open' || c.status === 'in_progress').length}
+            </div>
+          </div>
+          <div className="h-10 w-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold">
+            ⚡
           </div>
         </div>
-        <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
-          <div className="text-xs uppercase font-bold text-indigo-500">Avg Resolution Time</div>
-          <div className="text-2xl font-bold text-indigo-600 mt-1">4.2 hrs</div>
+
+        <div className="card-depth-3d p-4 rounded-xl flex items-center justify-between">
+          <div>
+            <div className="text-[11px] uppercase font-bold text-emerald-500">Resolved</div>
+            <div className="text-2xl font-black text-emerald-600 mt-1">
+              {complaints.filter((c) => c.status === 'resolved' || c.status === 'closed').length}
+            </div>
+          </div>
+          <div className="h-10 w-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
+            ✓
+          </div>
+        </div>
+
+        <div className="card-depth-3d p-4 rounded-xl flex items-center justify-between">
+          <div>
+            <div className="text-[11px] uppercase font-bold text-indigo-500">Avg SLA Speed</div>
+            <div className="text-2xl font-black text-indigo-600 mt-1">3.8 hrs</div>
+          </div>
+          <div className="h-10 w-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold">
+            ⏱
+          </div>
         </div>
       </div>
 
-      {/* Filter Tabs */}
-      <div className="flex gap-2">
+      {/* 3D Filter Pills */}
+      <div className="flex flex-wrap items-center gap-1.5">
         {['all', 'open', 'in_progress', 'resolved', 'closed'].map((st) => (
           <button
             key={st}
             onClick={() => setFilter(st)}
-            className={`px-3 py-1.5 rounded-xl text-xs font-semibold capitalize transition ${
+            className={`pill-3d px-3 py-1.5 text-xs capitalize cursor-pointer border transition ${
               filter === st
-                ? 'bg-indigo-600 text-white shadow-xs'
-                : 'bg-white text-slate-600 border border-slate-200'
+                ? 'bg-indigo-600 text-white border-indigo-700 shadow-[0_4px_12px_rgba(79,70,229,0.35)]'
+                : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'
             }`}
           >
             {st.replace('_', ' ')}
@@ -149,11 +208,11 @@ export default function Complaints() {
         ))}
       </div>
 
-      {/* Table */}
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+      {/* 3D Complaints Table */}
+      <div className="card-depth-3d overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm text-slate-600">
-            <thead className="bg-slate-50 text-slate-700 font-semibold uppercase text-xs border-b border-slate-100">
+            <thead className="bg-slate-100/70 text-slate-700 font-bold uppercase text-[11px] tracking-wider border-b border-slate-200/80">
               <tr>
                 <th className="px-6 py-4">Ticket #</th>
                 <th className="px-6 py-4">Resident & Room</th>
@@ -166,50 +225,55 @@ export default function Complaints() {
             </thead>
             <tbody className="divide-y divide-slate-100">
               {filtered.map((c) => (
-                <tr key={c._id} className="hover:bg-slate-50/60 transition">
-                  <td className="px-6 py-4 font-mono font-bold text-xs text-indigo-600">{c.ticketNo}</td>
+                <tr key={c._id} className="hover:bg-indigo-50/30 transition">
                   <td className="px-6 py-4">
-                    <div className="font-semibold text-slate-800">{c.resident}</div>
-                    <div className="text-xs text-slate-400">Room {c.room}</div>
+                    <span className="font-mono font-bold text-xs text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-100">
+                      {c.ticketNo}
+                    </span>
                   </td>
                   <td className="px-6 py-4">
-                    <span className="inline-block px-2 py-0.5 rounded text-[11px] font-semibold bg-slate-100 text-slate-700 mb-1">
-                      {c.category}
-                    </span>
-                    <div className="text-xs text-slate-800 font-medium">{c.title}</div>
+                    <div className="font-bold text-slate-800">{c.resident}</div>
+                    <div className="text-xs text-slate-400 font-medium">{c.room}</div>
+                  </td>
+                  <td className="px-6 py-4">
+                    <div className="flex items-center gap-1.5 mb-1">
+                      {getCategoryIcon(c.category)}
+                      <span className="text-[11px] font-bold text-slate-700">{c.category}</span>
+                    </div>
+                    <div className="text-xs text-slate-800 font-medium max-w-xs">{c.title}</div>
                   </td>
                   <td className="px-6 py-4">
                     <span
-                      className={`inline-block px-2 py-0.5 rounded-full text-[11px] font-bold uppercase ${
+                      className={`pill-3d px-2.5 py-0.5 text-[10px] font-extrabold uppercase border ${
                         c.priority === 'high'
-                          ? 'bg-rose-50 text-rose-600'
+                          ? 'bg-rose-50 text-rose-700 border-rose-200'
                           : c.priority === 'medium'
-                          ? 'bg-amber-50 text-amber-600'
-                          : 'bg-slate-100 text-slate-600'
+                          ? 'bg-amber-50 text-amber-700 border-amber-200'
+                          : 'bg-slate-100 text-slate-600 border-slate-200'
                       }`}
                     >
                       {c.priority}
                     </span>
                   </td>
-                  <td className="px-6 py-4 text-xs text-slate-600 font-medium">{c.assignedTo}</td>
+                  <td className="px-6 py-4 text-xs text-slate-600 font-semibold">{c.assignedTo}</td>
                   <td className="px-6 py-4">
                     <span
-                      className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold capitalize ${
+                      className={`pill-3d px-2.5 py-0.5 text-xs font-bold capitalize ${
                         c.status === 'resolved' || c.status === 'closed'
                           ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                           : c.status === 'in_progress'
                           ? 'bg-indigo-50 text-indigo-700 border border-indigo-200'
-                          : 'bg-amber-50 text-amber-700 border border-amber-200'
+                          : 'bg-amber-50 text-amber-700 border border-amber-200 animate-pulse'
                       }`}
                     >
                       {c.status.replace('_', ' ')}
                     </span>
                   </td>
-                  <td className="px-6 py-4 text-right space-x-1">
+                  <td className="px-6 py-4 text-right space-x-1.5">
                     {c.status === 'open' && (
                       <button
                         onClick={() => handleUpdateStatus(c._id, 'in_progress')}
-                        className="text-xs bg-indigo-600 text-white px-2.5 py-1 rounded-lg font-semibold hover:bg-indigo-700"
+                        className="btn-3d btn-3d-indigo text-xs px-2.5 py-1"
                       >
                         Start Work
                       </button>
@@ -217,14 +281,14 @@ export default function Complaints() {
                     {c.status === 'in_progress' && (
                       <button
                         onClick={() => handleUpdateStatus(c._id, 'resolved')}
-                        className="text-xs bg-emerald-600 text-white px-2.5 py-1 rounded-lg font-semibold hover:bg-emerald-700"
+                        className="btn-3d btn-3d-emerald text-xs px-2.5 py-1"
                       >
-                        Resolve
+                        ✓ Resolve
                       </button>
                     )}
-                    {c.status === 'resolved' && (
-                      <span className="text-xs text-emerald-600 font-semibold flex items-center justify-end gap-1">
-                        <CheckCircle size={14} /> Closed
+                    {(c.status === 'resolved' || c.status === 'closed') && (
+                      <span className="text-xs text-emerald-600 font-bold flex items-center justify-end gap-1">
+                        <CheckCircle size={15} /> Fixed
                       </span>
                     )}
                   </td>
@@ -235,7 +299,7 @@ export default function Complaints() {
         </div>
       </div>
 
-      {/* Modal */}
+      {/* 3D Ticket Modal */}
       {isModalOpen && (
         <Modal
           isOpen={isModalOpen}
@@ -245,83 +309,79 @@ export default function Complaints() {
           <form onSubmit={handleCreate} className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-600 mb-1">Resident Full Name</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Resident Full Name</label>
                 <input
                   type="text"
                   required
                   placeholder="e.g. Ali Raza"
                   value={form.resident}
                   onChange={(e) => setForm({ ...form, resident: e.target.value })}
-                  className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none"
+                  className="w-full px-3 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
                 />
               </div>
               <div>
-                <label className="block text-xs font-semibold text-slate-600 mb-1">Room No & Block</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Room No & Block</label>
                 <input
                   type="text"
                   required
-                  placeholder="e.g. 101 (Block A)"
+                  placeholder="101 (Block A)"
                   value={form.room}
                   onChange={(e) => setForm({ ...form, room: e.target.value })}
-                  className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none"
+                  className="w-full px-3 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
                 />
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-600 mb-1">Category</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Category</label>
                 <select
                   value={form.category}
                   onChange={(e) => setForm({ ...form, category: e.target.value })}
-                  className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none"
+                  className="w-full px-3 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
                 >
-                  <option value="Electrical">Electrical (Lights, AC, Fan)</option>
-                  <option value="Plumbing">Plumbing (Washroom, Leakage, Tap)</option>
-                  <option value="Carpentry">Carpentry (Bed, Desk, Cupboard)</option>
-                  <option value="Wi-Fi / Internet">Wi-Fi & Internet</option>
-                  <option value="Cleanliness">Cleanliness & Janitorial</option>
-                  <option value="Other">Other Issues</option>
+                  <option value="Electrical">Electrical (Fan / AC / Lights)</option>
+                  <option value="Plumbing">Plumbing (Washroom / Taps)</option>
+                  <option value="Wi-Fi / Internet">Wi-Fi & Network</option>
+                  <option value="Carpentry">Carpentry & Furniture</option>
+                  <option value="Cleanliness">Janitorial & Cleaning</option>
                 </select>
               </div>
               <div>
-                <label className="block text-xs font-semibold text-slate-600 mb-1">Urgency Priority</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Priority</label>
                 <select
                   value={form.priority}
                   onChange={(e) => setForm({ ...form, priority: e.target.value })}
-                  className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none"
+                  className="w-full px-3 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
                 >
-                  <option value="low">Low (Within 48h)</option>
-                  <option value="medium">Medium (Within 24h)</option>
-                  <option value="high">High Emergency (Immediate)</option>
+                  <option value="low">Low (General)</option>
+                  <option value="medium">Medium (Standard 24h)</option>
+                  <option value="high">High (Urgent / Immediate)</option>
                 </select>
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-600 mb-1">Issue Description</label>
+              <label className="block text-xs font-bold text-slate-700 mb-1">Issue Description</label>
               <textarea
                 rows={3}
                 required
-                placeholder="Explain the issue in detail..."
+                placeholder="State the exact issue, symptoms, and urgency"
                 value={form.title}
                 onChange={(e) => setForm({ ...form, title: e.target.value })}
-                className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none"
+                className="w-full px-3 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
               />
             </div>
 
-            <div className="flex justify-end gap-2 pt-4 border-t border-slate-100">
+            <div className="flex justify-end gap-3 pt-4 border-t border-slate-100">
               <button
                 type="button"
                 onClick={() => setIsModalOpen(false)}
-                className="px-4 py-2 border border-slate-200 rounded-xl text-xs font-semibold text-slate-600"
+                className="btn-3d btn-3d-slate px-4 py-2 text-xs"
               >
                 Cancel
               </button>
-              <button
-                type="submit"
-                className="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold transition"
-              >
+              <button type="submit" className="btn-3d btn-3d-indigo px-5 py-2 text-xs">
                 Submit Ticket
               </button>
             </div>
