@@ -8,35 +8,46 @@ import crypto from "crypto";
 const router = Router();
 
 // ══════════════════════════════════════════════════════════
-//  FEE HEADS
+//  FEE HEADS (Support both /fee-heads and /heads)
 // ══════════════════════════════════════════════════════════
 
-router.get("/fee-heads", protect, async (_req, res) => {
+const getHeadsHandler = async (_req, res) => {
   try {
     const heads = await FeeHead.find().sort("name");
     res.json({ success: true, data: heads, message: "Fee heads fetched" });
   } catch (err) {
     res.status(500).json({ success: false, data: null, message: err.message });
   }
-});
+};
+
+router.get("/fee-heads", protect, getHeadsHandler);
+router.get("/heads", protect, getHeadsHandler);
+
+const createHeadHandler = async (req, res) => {
+  try {
+    const head = await FeeHead.create(req.body);
+    res
+      .status(201)
+      .json({ success: true, data: head, message: "Fee head created" });
+  } catch (err) {
+    const status = err.code === 11000 ? 409 : 500;
+    res
+      .status(status)
+      .json({ success: false, data: null, message: err.message });
+  }
+};
 
 router.post(
   "/fee-heads",
   protect,
   authorize("super_admin", "accountant"),
-  async (req, res) => {
-    try {
-      const head = await FeeHead.create(req.body);
-      res
-        .status(201)
-        .json({ success: true, data: head, message: "Fee head created" });
-    } catch (err) {
-      const status = err.code === 11000 ? 409 : 500;
-      res
-        .status(status)
-        .json({ success: false, data: null, message: err.message });
-    }
-  }
+  createHeadHandler
+);
+router.post(
+  "/heads",
+  protect,
+  authorize("super_admin", "accountant"),
+  createHeadHandler
 );
 
 router.put(

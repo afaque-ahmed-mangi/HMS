@@ -68,10 +68,62 @@ const PAYMENT_METHODS = [
   },
 ];
 
+const defaultDemoInvoices = [
+  {
+    _id: 'inv-1',
+    invoiceNumber: 'INV-2026-001',
+    resident: { name: 'Ali Raza', room: '101' },
+    feeType: 'Hostel Rent (Nov 2026)',
+    amount: 15000,
+    dueDate: '2026-11-10',
+    status: 'paid',
+    paidAt: '2026-11-05',
+    method: 'JazzCash',
+  },
+  {
+    _id: 'inv-2',
+    invoiceNumber: 'INV-2026-002',
+    resident: { name: 'Hamza Tariq', room: '102' },
+    feeType: 'Hostel Rent (Nov 2026)',
+    amount: 15000,
+    dueDate: '2026-11-10',
+    status: 'unpaid',
+  },
+  {
+    _id: 'inv-3',
+    invoiceNumber: 'INV-2026-003',
+    resident: { name: 'Zainab Bibi', room: '201' },
+    feeType: 'Mess Charges (Nov 2026)',
+    amount: 8500,
+    dueDate: '2026-11-05',
+    status: 'overdue',
+  },
+  {
+    _id: 'inv-4',
+    invoiceNumber: 'INV-2026-004',
+    resident: { name: 'Bilal Ahmed', room: '204' },
+    feeType: 'Security Deposit (Refundable)',
+    amount: 20000,
+    dueDate: '2026-11-15',
+    status: 'paid',
+    paidAt: '2026-11-02',
+    method: 'Bank Transfer',
+  },
+  {
+    _id: 'inv-5',
+    invoiceNumber: 'INV-2026-005',
+    resident: { name: 'Saad Malik', room: '301' },
+    feeType: 'Hostel Rent (Nov 2026)',
+    amount: 12000,
+    dueDate: '2026-11-10',
+    status: 'unpaid',
+  },
+];
+
 export default function Fees() {
-  const [invoices, setInvoices] = useState([]);
+  const [invoices, setInvoices] = useState(defaultDemoInvoices);
   const [feeHeads, setFeeHeads] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [isPayModalOpen, setIsPayModalOpen] = useState(false);
   const [isInvoiceModalOpen, setIsInvoiceModalOpen] = useState(false);
   const [isDefaultMethodModalOpen, setIsDefaultMethodModalOpen] = useState(false);
@@ -117,72 +169,25 @@ export default function Fees() {
 
   const fetchData = async () => {
     try {
-      setLoading(true);
       const [resInv, resHeads] = await Promise.allSettled([getInvoices(), getFeeHeads()]);
       if (resInv.status === 'fulfilled' && resInv.value?.data?.data) {
-        setInvoices(resInv.value.data.data);
-      } else {
-        // Fallback demo data
-        setInvoices([
-          {
-            _id: 'inv-1',
-            invoiceNumber: 'INV-2026-001',
-            resident: { name: 'Ali Raza', room: '101' },
-            feeType: 'Hostel Rent (Nov 2026)',
-            amount: 15000,
-            dueDate: '2026-11-10',
-            status: 'paid',
-            paidAt: '2026-11-05',
-            method: 'JazzCash',
-          },
-          {
-            _id: 'inv-2',
-            invoiceNumber: 'INV-2026-002',
-            resident: { name: 'Hamza Tariq', room: '102' },
-            feeType: 'Hostel Rent (Nov 2026)',
-            amount: 15000,
-            dueDate: '2026-11-10',
-            status: 'unpaid',
-          },
-          {
-            _id: 'inv-3',
-            invoiceNumber: 'INV-2026-003',
-            resident: { name: 'Zainab Bibi', room: '201' },
-            feeType: 'Mess Charges (Nov 2026)',
-            amount: 8500,
-            dueDate: '2026-11-05',
-            status: 'overdue',
-          },
-          {
-            _id: 'inv-4',
-            invoiceNumber: 'INV-2026-004',
-            resident: { name: 'Bilal Ahmed', room: '204' },
-            feeType: 'Security Deposit (Refundable)',
-            amount: 20000,
-            dueDate: '2026-11-15',
-            status: 'paid',
-            paidAt: '2026-11-02',
-            method: 'Bank Transfer',
-          },
-          {
-            _id: 'inv-5',
-            invoiceNumber: 'INV-2026-005',
-            resident: { name: 'Saad Malik', room: '301' },
-            feeType: 'Hostel Rent (Nov 2026)',
-            amount: 12000,
-            dueDate: '2026-11-10',
-            status: 'unpaid',
-          },
-        ]);
+        const raw = resInv.value.data.data;
+        const list = Array.isArray(raw)
+          ? raw
+          : Array.isArray(raw?.invoices)
+          ? raw.invoices
+          : [];
+        if (list.length > 0) {
+          setInvoices(list);
+        }
       }
 
       if (resHeads.status === 'fulfilled' && resHeads.value?.data?.data) {
-        setFeeHeads(resHeads.value.data.data);
+        const headsRaw = resHeads.value.data.data;
+        if (Array.isArray(headsRaw)) setFeeHeads(headsRaw);
       }
     } catch (err) {
       console.error(err);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -261,17 +266,20 @@ export default function Fees() {
     }
   };
 
-  const totalCollected = invoices
-    .filter((i) => i.status === 'paid')
+  const safeInvoices = Array.isArray(invoices) ? invoices : defaultDemoInvoices;
+
+  const totalCollected = safeInvoices
+    .filter((i) => i && i.status === 'paid')
     .reduce((sum, i) => sum + (Number(i.amount) || 0), 0);
-  const totalPending = invoices
-    .filter((i) => i.status === 'unpaid' || i.status === 'overdue')
+  const totalPending = safeInvoices
+    .filter((i) => i && (i.status === 'unpaid' || i.status === 'overdue'))
     .reduce((sum, i) => sum + (Number(i.amount) || 0), 0);
 
   const activeMethodObj =
     PAYMENT_METHODS.find((m) => m.id === defaultMethod) || PAYMENT_METHODS[0];
 
-  const filteredInvoices = invoices.filter((inv) => {
+  const filteredInvoices = safeInvoices.filter((inv) => {
+    if (!inv) return false;
     const rName = inv.resident?.name || inv.residentName || '';
     const rRoom = inv.resident?.room || inv.roomNo || '';
     const invNo = inv.invoiceNumber || '';
@@ -280,7 +288,7 @@ export default function Fees() {
       rRoom.toLowerCase().includes(searchQuery.toLowerCase()) ||
       invNo.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesStatus =
-      statusFilter === 'all' || inv.status.toLowerCase() === statusFilter.toLowerCase();
+      statusFilter === 'all' || (inv.status && inv.status.toLowerCase() === statusFilter.toLowerCase());
     return matchesSearch && matchesStatus;
   });
 

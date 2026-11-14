@@ -3,6 +3,7 @@ import { AuthProvider } from './context/AuthContext';
 import { BrandingProvider } from './context/BrandingContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import Layout from './components/Layout';
+import ErrorBoundary from './components/ErrorBoundary';
 
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -22,7 +23,12 @@ import Profile from './pages/Profile';
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter
+      future={{
+        v7_startTransition: true,
+        v7_relativeSplatPath: true,
+      }}
+    >
       <AuthProvider>
         <BrandingProvider>
           <Routes>
@@ -35,7 +41,9 @@ export default function App() {
             <Route
               element={
                 <ProtectedRoute>
-                  <Layout />
+                  <ErrorBoundary>
+                    <Layout />
+                  </ErrorBoundary>
                 </ProtectedRoute>
               }
             >

@@ -19,10 +19,81 @@ import {
   HeartPulse,
 } from 'lucide-react';
 
+const demoResidentsList = [
+  {
+    _id: '1',
+    name: 'Ali Raza',
+    email: 'ali.raza@example.com',
+    phone: '0300-1234567',
+    cnic: '35201-1234567-1',
+    institution: 'FAST-NUCES Lahore',
+    degree: 'BS Computer Science',
+    rollNumber: '22L-4589',
+    guardianName: 'Muhammad Raza',
+    guardianPhone: '0300-7654321',
+    guardianRelation: 'Father',
+    permanentAddress: 'House 42, Model Town, Gujranwala',
+    room: { roomNumber: '101', block: 'Block A', bed: 'Bed 1' },
+    status: 'active',
+    joinedDate: '2026-01-10',
+  },
+  {
+    _id: '2',
+    name: 'Hamza Tariq',
+    email: 'hamza.tariq@example.com',
+    phone: '0312-9876543',
+    cnic: '35202-7654321-3',
+    institution: 'PUCIT New Campus',
+    degree: 'BS Software Engineering',
+    rollNumber: 'BCSF21M012',
+    guardianName: 'Tariq Mehmood',
+    guardianPhone: '0313-1122334',
+    guardianRelation: 'Father',
+    permanentAddress: 'Street 5, Satellite Town, Rawalpindi',
+    room: { roomNumber: '102', block: 'Block A', bed: 'Bed 2' },
+    status: 'active',
+    joinedDate: '2026-02-01',
+  },
+  {
+    _id: '3',
+    name: 'Zainab Bibi',
+    email: 'zainab@example.com',
+    phone: '0333-5566778',
+    cnic: '35201-9988776-2',
+    institution: 'KEMU Medical College',
+    degree: 'MBBS 3rd Year',
+    rollNumber: 'KM-2023-88',
+    guardianName: 'Abdul Rehman',
+    guardianPhone: '0334-9988776',
+    guardianRelation: 'Father',
+    permanentAddress: 'Gulberg Greens, Islamabad',
+    room: { roomNumber: '201', block: 'Block B (Girls)', bed: 'Bed 1' },
+    status: 'active',
+    joinedDate: '2026-02-15',
+  },
+  {
+    _id: '4',
+    name: 'Bilal Ahmed',
+    email: 'bilal.ahmed@example.com',
+    phone: '0321-4433221',
+    cnic: '38403-1289345-5',
+    institution: 'UET Lahore',
+    degree: 'BSc Electrical Eng',
+    rollNumber: '2022-EE-104',
+    guardianName: 'Ahmed Din',
+    guardianPhone: '0321-9988112',
+    guardianRelation: 'Father',
+    permanentAddress: 'Chak 45, Sargodha',
+    room: { roomNumber: '204', block: 'Block A', bed: 'Bed 2' },
+    status: 'active',
+    joinedDate: '2026-03-01',
+  },
+];
+
 export default function Residents() {
-  const [residents, setResidents] = useState([]);
+  const [residents, setResidents] = useState(demoResidentsList);
   const [rooms, setRooms] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedResident, setSelectedResident] = useState(null);
   const [search, setSearch] = useState('');
@@ -82,84 +153,17 @@ export default function Residents() {
     try {
       setLoading(true);
       const [resRes, resRooms] = await Promise.allSettled([getResidents(), getRooms()]);
-      if (resRes.status === 'fulfilled' && resRes.value?.data?.data && resRes.value.data.data.length > 0) {
-        setResidents(resRes.value.data.data);
-      } else {
-        // Full rich demo data matching architecture proposal
-        setResidents([
-          {
-            _id: '1',
-            name: 'Ali Raza',
-            email: 'ali.raza@example.com',
-            phone: '0300-1234567',
-            cnic: '35201-1234567-1',
-            institution: 'FAST-NUCES Lahore',
-            degree: 'BS Computer Science',
-            rollNumber: '22L-4589',
-            guardianName: 'Muhammad Raza',
-            guardianPhone: '0300-7654321',
-            guardianRelation: 'Father',
-            permanentAddress: 'House 42, Model Town, Gujranwala',
-            room: { roomNumber: '101', block: 'Block A', bed: 'Bed 1' },
-            status: 'active',
-            joinedDate: '2026-01-10',
-          },
-          {
-            _id: '2',
-            name: 'Hamza Tariq',
-            email: 'hamza.tariq@example.com',
-            phone: '0312-9876543',
-            cnic: '35202-7654321-3',
-            institution: 'PUCIT New Campus',
-            degree: 'BS Software Engineering',
-            rollNumber: 'BCSF21M012',
-            guardianName: 'Tariq Mehmood',
-            guardianPhone: '0313-1122334',
-            guardianRelation: 'Father',
-            permanentAddress: 'Street 5, Satellite Town, Rawalpindi',
-            room: { roomNumber: '102', block: 'Block A', bed: 'Bed 2' },
-            status: 'active',
-            joinedDate: '2026-02-01',
-          },
-          {
-            _id: '3',
-            name: 'Zainab Bibi',
-            email: 'zainab@example.com',
-            phone: '0333-5566778',
-            cnic: '35201-9988776-2',
-            institution: 'KEMU Medical College',
-            degree: 'MBBS 3rd Year',
-            rollNumber: 'KM-2023-88',
-            guardianName: 'Abdul Rehman',
-            guardianPhone: '0334-9988776',
-            guardianRelation: 'Father',
-            permanentAddress: 'Gulberg Greens, Islamabad',
-            room: { roomNumber: '201', block: 'Block B (Girls)', bed: 'Bed 1' },
-            status: 'active',
-            joinedDate: '2026-02-15',
-          },
-          {
-            _id: '4',
-            name: 'Bilal Ahmed',
-            email: 'bilal.ahmed@example.com',
-            phone: '0321-4433221',
-            cnic: '38403-1289345-5',
-            institution: 'UET Lahore',
-            degree: 'BSc Electrical Eng',
-            rollNumber: '2022-EE-104',
-            guardianName: 'Ahmed Din',
-            guardianPhone: '0321-9988112',
-            guardianRelation: 'Father',
-            permanentAddress: 'Chak 45, Sargodha',
-            room: { roomNumber: '204', block: 'Block A', bed: 'Bed 2' },
-            status: 'active',
-            joinedDate: '2026-03-01',
-          },
-        ]);
+      if (resRes.status === 'fulfilled' && resRes.value?.data?.data) {
+        const raw = resRes.value.data.data;
+        const list = Array.isArray(raw) ? raw : (Array.isArray(raw?.residents) ? raw.residents : []);
+        if (list.length > 0) {
+          setResidents(list);
+        }
       }
 
       if (resRooms.status === 'fulfilled' && resRooms.value?.data?.data) {
-        setRooms(resRooms.value.data.data);
+        const roomRaw = resRooms.value.data.data;
+        if (Array.isArray(roomRaw)) setRooms(roomRaw);
       }
     } catch (err) {
       console.error(err);
@@ -248,7 +252,10 @@ export default function Residents() {
     }
   };
 
-  const filtered = residents.filter((r) => {
+  const safeResidents = Array.isArray(residents) ? residents : demoResidentsList;
+
+  const filtered = safeResidents.filter((r) => {
+    if (!r) return false;
     const matchSearch =
       r.name?.toLowerCase().includes(search.toLowerCase()) ||
       r.email?.toLowerCase().includes(search.toLowerCase()) ||

@@ -85,9 +85,12 @@ export default function Rooms() {
       .catch(() => {});
   }, []);
 
-  const filtered = rooms.filter((r) => {
+  const safeRooms = Array.isArray(rooms) ? rooms : demoRooms;
+
+  const filtered = safeRooms.filter((r) => {
+    if (!r) return false;
     const matchSearch =
-      r.roomNumber.toLowerCase().includes(search.toLowerCase()) ||
+      (r.roomNumber && r.roomNumber.toLowerCase().includes(search.toLowerCase())) ||
       (r.block && r.block.toLowerCase().includes(search.toLowerCase()));
     const matchStatus = filterStatus === 'all' || r.status === filterStatus;
     return matchSearch && matchStatus;
@@ -160,11 +163,11 @@ export default function Rooms() {
   };
 
   const counts = {
-    all: rooms.length,
-    available: rooms.filter((r) => r.status === 'available').length,
-    occupied: rooms.filter((r) => r.status === 'occupied').length,
-    maintenance: rooms.filter((r) => r.status === 'maintenance').length,
-    reserved: rooms.filter((r) => r.status === 'reserved').length,
+    all: safeRooms.length,
+    available: safeRooms.filter((r) => r.status === 'available').length,
+    occupied: safeRooms.filter((r) => r.status === 'occupied').length,
+    maintenance: safeRooms.filter((r) => r.status === 'maintenance').length,
+    reserved: safeRooms.filter((r) => r.status === 'reserved').length,
   };
 
   return (
