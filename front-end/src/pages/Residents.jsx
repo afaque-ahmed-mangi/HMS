@@ -367,7 +367,7 @@ export default function Residents() {
                     <span className="pill-3d px-2.5 py-1 bg-indigo-50 text-indigo-700 font-bold text-xs border border-indigo-200">
                       <BedDouble size={14} className="mr-1 inline" />
                       {r.room
-                        ? `Room ${r.room.roomNumber || '101'} - ${r.room.block || 'Block A'} (${r.room.bed || 'Bed 1'})`
+                        ? `Room ${r.room.roomNumber || '101'} - ${typeof r.room.block === 'object' ? (r.room.block?.name || 'Block A') : (r.room.block || 'Block A')} (${r.room.bed || 'Bed 1'})`
                         : 'Unassigned'}
                     </span>
                   </td>

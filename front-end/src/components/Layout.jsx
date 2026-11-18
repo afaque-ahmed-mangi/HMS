@@ -4,6 +4,7 @@ import Sidebar from './Sidebar';
 import { useAuth } from '../context/AuthContext';
 import { useBranding } from '../context/BrandingContext';
 import { Bell, Menu, Sparkles } from 'lucide-react';
+import ChatWidget from './ChatWidget';
 
 export default function Layout() {
   const [collapsed, setCollapsed] = useState(false);
@@ -87,6 +88,9 @@ export default function Layout() {
           <Outlet />
         </main>
       </div>
+
+      {/* Floating AI Chatbot Widget */}
+      <ChatWidget />
     </div>
   );
 }

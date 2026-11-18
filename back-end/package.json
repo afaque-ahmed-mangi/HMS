@@ -7,7 +7,8 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node --watch server.js",
-    "seed": "node src/utils/seed.js"
+    "seed": "node src/utils/seed.js",
+    "export-data": "node scripts/export_training_data.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

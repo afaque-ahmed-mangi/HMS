@@ -48,4 +48,7 @@ export const getDashboardStats = () => API.get('/dashboard/stats');
 export const updateProfile = (data) => API.put('/auth/profile', data);
 export const changePassword = (data) => API.put('/auth/password', data);
 
+// AI Chatbot
+export const sendChatMessage = (data) => API.post('/chat', data);
+
 export default API;

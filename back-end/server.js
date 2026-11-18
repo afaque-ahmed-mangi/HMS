@@ -11,6 +11,7 @@ import roomRoutes from "./src/routes/rooms.js";
 import residentRoutes from "./src/routes/residents.js";
 import feeRoutes from "./src/routes/fees.js";
 import dashboardRoutes from "./src/routes/dashboard.js";
+import chatRoutes from "./src/routes/chat.js";
 
 dotenv.config();
 
@@ -30,6 +31,8 @@ app.use("/api/v1/rooms", roomRoutes);
 app.use("/api/v1/residents", residentRoutes);
 app.use("/api/v1/fees", feeRoutes);
 app.use("/api/v1/dashboard", dashboardRoutes);
+app.use("/api/v1/chat", chatRoutes);
+app.use("/api/chat", chatRoutes);
 
 // Health check
 app.get("/api/v1/health", (_req, res) => {

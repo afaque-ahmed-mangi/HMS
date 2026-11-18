@@ -69,6 +69,12 @@ const emptyForm = {
   block: 'Block A',
 };
 
+const getBlockName = (block) => {
+  if (!block) return 'Block A';
+  if (typeof block === 'object') return block.name || 'Block A';
+  return String(block);
+};
+
 export default function Rooms() {
   const [rooms, setRooms] = useState(demoRooms);
   const [search, setSearch] = useState('');
@@ -89,9 +95,10 @@ export default function Rooms() {
 
   const filtered = safeRooms.filter((r) => {
     if (!r) return false;
+    const blockStr = getBlockName(r.block).toLowerCase();
     const matchSearch =
       (r.roomNumber && r.roomNumber.toLowerCase().includes(search.toLowerCase())) ||
-      (r.block && r.block.toLowerCase().includes(search.toLowerCase()));
+      blockStr.includes(search.toLowerCase());
     const matchStatus = filterStatus === 'all' || r.status === filterStatus;
     return matchSearch && matchStatus;
   });
@@ -111,7 +118,7 @@ export default function Rooms() {
       capacity: room.capacity,
       rent: room.rent,
       status: room.status,
-      block: room.block || 'Block A',
+      block: getBlockName(room.block),
     });
     setModalOpen(true);
   };
@@ -299,7 +306,7 @@ export default function Rooms() {
                       <span className="text-lg font-black text-slate-800 tracking-tight">
                         Room {room.roomNumber}
                       </span>
-                      <p className="text-[10px] text-slate-400 font-semibold">{room.block || 'Block A'}</p>
+                      <p className="text-[10px] text-slate-400 font-semibold">{getBlockName(room.block)}</p>
                     </div>
                   </div>
                   <span className={`pill-3d px-2.5 py-1 text-[11px] font-bold capitalize border ${style.badge}`}>

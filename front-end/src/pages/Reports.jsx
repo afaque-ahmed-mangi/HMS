@@ -219,7 +219,7 @@ export default function Reports() {
             <tbody className="divide-y divide-slate-100">
               {occupancyList.map((o, i) => (
                 <tr key={i} className="hover:bg-emerald-50/20 transition">
-                  <td className="px-6 py-4 font-bold text-slate-800">{o.block}</td>
+                  <td className="px-6 py-4 font-bold text-slate-800">{typeof o.block === 'object' ? (o.block?.name || 'Block') : o.block}</td>
                   <td className="px-6 py-4 font-bold">{o.totalBeds}</td>
                   <td className="px-6 py-4 font-semibold text-indigo-600">{o.occupied}</td>
                   <td className="px-6 py-4 font-semibold text-emerald-600">{o.vacant}</td>
