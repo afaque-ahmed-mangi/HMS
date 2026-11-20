@@ -140,19 +140,19 @@ export default function Home() {
               
               {/* Category Pill with Red Bar (exact like image: | AI CHATBOTS) */}
               <div className="inline-flex items-center gap-2.5">
-                <span className="h-5 w-1.5 bg-[#e5192d] rounded-full inline-block" />
-                <span className="text-xs sm:text-sm font-extrabold uppercase tracking-[0.25em] text-slate-900">
-                  AI CHATBOTS & SMART HOSTEL
+                <span className="h-6 w-1.5 bg-[#e5192d] rounded-full inline-block" />
+                <span className="text-xs sm:text-sm font-black uppercase tracking-[0.25em] text-slate-900">
+                  AI CHATBOTS
                 </span>
               </div>
 
               {/* Main Typography Statement */}
               <div className="space-y-1">
-                <h1 className="text-5xl sm:text-6xl xl:text-[76px] font-black uppercase tracking-tight leading-[0.95] text-slate-950 font-sans">
+                <h1 className="text-5xl sm:text-6xl xl:text-[76px] font-black uppercase tracking-tight leading-[0.93] text-slate-950 font-sans">
                   LET YOUR <br />
                   WEBSITE <br />
                   <span className="text-[#e5192d] italic">DO THE</span> <br />
-                  TALKING.
+                  <span className="text-[#e5192d]">TALKING.</span>
                 </h1>
               </div>
 
@@ -165,11 +165,11 @@ export default function Home() {
                 Connect guests and students with real-time room vacancies, verified fee structures, and instant policy answers — powered by live MongoDB intelligence.
               </p>
 
-              {/* Primary Call to Action Button (Signature Red Pill from Reference Image) */}
+              {/* Primary Call to Action Button */}
               <div className="pt-2 flex flex-wrap items-center gap-4">
                 <button
                   onClick={() => openFloatingChat('What rooms are available right now?')}
-                  className="group px-8 py-4 rounded-full bg-gradient-to-r from-[#e5192d] via-[#f01c30] to-[#ff2b3e] text-white font-extrabold text-sm sm:text-base tracking-wide flex items-center gap-3 shadow-[0_12px_32px_rgba(229,25,45,0.42)] hover:shadow-[0_16px_40px_rgba(229,25,45,0.6)] hover:scale-[1.03] active:scale-[0.98] transition-all duration-300"
+                  className="group px-9 py-4 rounded-full bg-gradient-to-r from-[#e5192d] via-[#f01c30] to-[#ff2b3e] text-white font-extrabold text-sm sm:text-base tracking-wide flex items-center gap-3 shadow-[0_12px_32px_rgba(229,25,45,0.42)] hover:shadow-[0_16px_40px_rgba(229,25,45,0.6)] hover:scale-[1.03] active:scale-[0.98] transition-all duration-300"
                 >
                   <span>Build with Afaque</span>
                   <ArrowRight size={18} className="group-hover:translate-x-1.5 transition-transform duration-300" />
@@ -187,7 +187,7 @@ export default function Home() {
               {/* Sub-Brand Signature Line (exact like image: — afaque.co) */}
               <div className="pt-4 flex items-center gap-3 text-xs font-bold text-slate-600 tracking-wider">
                 <span className="h-0.5 w-7 bg-[#e5192d] inline-block" />
-                <span className="text-slate-900 tracking-widest uppercase">afaque.co</span>
+                <span className="text-slate-900 tracking-widest uppercase font-black">afaque.co</span>
                 <span className="text-slate-300">•</span>
                 <span className="text-slate-500 font-semibold flex items-center gap-1.5">
                   <ShieldCheck size={14} className="text-emerald-500" />
@@ -196,53 +196,16 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Right Visual Column (Matches the 3D Glass Artwork from the Image) */}
+            {/* Right Visual Column (Pristine 3D Glass Artwork from the Image) */}
             <div className="lg:col-span-6 relative flex justify-center items-center">
-              
-              {/* Outer decorative glow container */}
-              <div className="relative w-full max-w-[500px] aspect-square rounded-[36px] p-2 bg-gradient-to-b from-white/90 to-slate-100/60 backdrop-blur-2xl border border-white/80 shadow-[0_30px_90px_rgba(229,25,45,0.22)] overflow-hidden group">
-                
-                {/* Visual Glassmorphic Art - High-Res Artwork from the User */}
-                <div className="relative w-full h-full rounded-[28px] overflow-hidden bg-gradient-to-b from-white to-slate-100 flex items-center justify-center">
-                  <img
-                    src="/hero-3d-bot.jpg"
-                    alt="3D Glassmorphic AI Chatbot Sculpture"
-                    className="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-700 ease-out"
-                  />
-
-                  {/* Gradient Overlay for seamless integration */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60" />
-
-                  {/* Floating 3D Metric Badges */}
-                  <div className="absolute top-5 left-5 bg-white/90 backdrop-blur-md px-3.5 py-2 rounded-2xl border border-white/70 shadow-[0_10px_25px_rgba(0,0,0,0.08)] flex items-center gap-2 animate-bounce [animation-duration:4s]">
-                    <div className="h-2.5 w-2.5 rounded-full bg-emerald-500 animate-ping" />
-                    <span className="text-xs font-black text-slate-800">Live DB Connected</span>
-                  </div>
-
-                  <div className="absolute bottom-5 left-5 right-5 bg-white/95 backdrop-blur-xl p-4 rounded-2xl border border-white/80 shadow-[0_15px_35px_rgba(0,0,0,0.12)] flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <div className="h-10 w-10 rounded-xl bg-gradient-to-tr from-[#e5192d] to-[#ff3b4f] text-white flex items-center justify-center font-black shadow-md">
-                        <MessageSquare size={18} />
-                      </div>
-                      <div>
-                        <p className="text-xs font-black text-slate-900">AI Assistant Ready</p>
-                        <p className="text-[11px] text-slate-500 font-medium">Click to chat in real-time</p>
-                      </div>
-                    </div>
-
-                    <button
-                      onClick={() => openFloatingChat('Hello, how can I book a room?')}
-                      className="px-4 py-2 rounded-xl bg-[#e5192d] hover:bg-[#d01325] text-white text-xs font-extrabold shadow-md hover:shadow-lg transition-all"
-                    >
-                      Chat Now
-                    </button>
-                  </div>
-                </div>
-
-                {/* Ambient Red Glow Halo */}
-                <div className="absolute -bottom-10 -right-10 w-44 h-44 bg-[#e5192d]/30 rounded-full blur-2xl pointer-events-none" />
+              <div className="relative w-full max-w-[520px] aspect-square rounded-[36px] overflow-hidden shadow-[0_25px_80px_rgba(229,25,45,0.18)] border border-slate-200/70 bg-gradient-to-b from-white to-slate-50/50 group">
+                <img
+                  src="/hero-3d-bot.jpg"
+                  alt="3D Glassmorphic AI Chatbot Sculpture"
+                  className="w-full h-full object-cover object-center transform group-hover:scale-103 transition-transform duration-700 ease-out cursor-pointer"
+                  onClick={() => openFloatingChat('What rooms are available right now?')}
+                />
               </div>
-
             </div>
 
           </div>
