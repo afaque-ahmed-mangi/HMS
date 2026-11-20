@@ -171,7 +171,7 @@ export default function Home() {
                   onClick={() => openFloatingChat('What rooms are available right now?')}
                   className="group px-8 py-4 rounded-full bg-gradient-to-r from-[#e5192d] via-[#f01c30] to-[#ff2b3e] text-white font-extrabold text-sm sm:text-base tracking-wide flex items-center gap-3 shadow-[0_12px_32px_rgba(229,25,45,0.42)] hover:shadow-[0_16px_40px_rgba(229,25,45,0.6)] hover:scale-[1.03] active:scale-[0.98] transition-all duration-300"
                 >
-                  <span>Build with Quentis</span>
+                  <span>Build with Afaque</span>
                   <ArrowRight size={18} className="group-hover:translate-x-1.5 transition-transform duration-300" />
                 </button>
 
@@ -184,10 +184,10 @@ export default function Home() {
                 </Link>
               </div>
 
-              {/* Sub-Brand Signature Line (exact like image: — quentis.co) */}
+              {/* Sub-Brand Signature Line (exact like image: — afaque.co) */}
               <div className="pt-4 flex items-center gap-3 text-xs font-bold text-slate-600 tracking-wider">
                 <span className="h-0.5 w-7 bg-[#e5192d] inline-block" />
-                <span className="text-slate-900 tracking-widest uppercase">quentis.co</span>
+                <span className="text-slate-900 tracking-widest uppercase">afaque.co</span>
                 <span className="text-slate-300">•</span>
                 <span className="text-slate-500 font-semibold flex items-center gap-1.5">
                   <ShieldCheck size={14} className="text-emerald-500" />
