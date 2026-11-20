@@ -20,6 +20,7 @@ import Notices from './pages/Notices';
 import Fees from './pages/Fees';
 import Reports from './pages/Reports';
 import Profile from './pages/Profile';
+import Home from './pages/Home';
 
 export default function App() {
   return (
@@ -33,6 +34,7 @@ export default function App() {
         <BrandingProvider>
           <Routes>
             {/* Public Routes */}
+            <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -62,8 +64,7 @@ export default function App() {
             </Route>
 
             {/* Fallback */}
-            <Route path="/" element={<Navigate to="/dashboard" replace />} />
-            <Route path="*" element={<Navigate to="/dashboard" replace />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </BrandingProvider>
       </AuthProvider>

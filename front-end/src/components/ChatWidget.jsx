@@ -57,6 +57,13 @@ export default function ChatWidget() {
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
 
+  // Allow external buttons (like Home page Hero CTA) to open the chat widget
+  useEffect(() => {
+    const handleOpenChat = () => setIsOpen(true);
+    window.addEventListener('open-hms-chat', handleOpenChat);
+    return () => window.removeEventListener('open-hms-chat', handleOpenChat);
+  }, []);
+
   useEffect(() => {
     localStorage.setItem('hms_chat_messages', JSON.stringify(messages));
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
