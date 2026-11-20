@@ -72,14 +72,21 @@ export async function getHotelContext() {
       contextText += "- Single, Double, and Triple occupancy rooms available upon inquiry at the front desk.\n";
     }
 
-    // Pricing / Fee Heads
-    contextText += "\nOfficial Fee Structure & Rates:\n";
+    // Pricing / Fee Heads & City Rates
+    contextText += "\nOfficial Fee Structure & City-Wise Rates (All in Rs.):\n";
+    contextText += "- JAMSHORO CAMPUS: Base Double Room: Rs. 12,000/month | Single Deluxe: Rs. 16,000/month | Triple Sharing: Rs. 9,500/month | Quad Dormitory: Rs. 7,500/month.\n";
+    contextText += "- HYDERABAD CAMPUS: Double Sharing: Rs. 14,000/month | Single Deluxe: Rs. 18,000/month | Triple: Rs. 11,000/month.\n";
+    contextText += "- KARACHI CAMPUS: Double Sharing: Rs. 18,000/month | Single Deluxe: Rs. 24,000/month | Triple: Rs. 14,000/month.\n";
+    contextText += "- ISLAMABAD CAMPUS: Double Sharing: Rs. 20,000/month | Single Deluxe: Rs. 26,000/month | Triple: Rs. 15,000/month.\n";
+    contextText += "- LAHORE CAMPUS: Double Sharing: Rs. 16,000/month | Single Deluxe: Rs. 22,000/month | Triple: Rs. 12,500/month.\n";
+
     if (feeHeads.length > 0) {
+      contextText += "\nStandard Central Fee Heads:\n";
       feeHeads.forEach((f) => {
-        contextText += `- ${f.name}: $${f.amount} (${f.frequency}). ${f.description || ""}\n`;
+        contextText += `- ${f.name}: Rs. ${f.amount} (${f.frequency}). ${f.description || ""}\n`;
       });
     } else {
-      contextText += "- Standard Room: $500/month, Deluxe Room: $750/month. Contact front desk for latest fee schedule.\n";
+      contextText += "- Standard Room: Rs. 12,000/month in Jamshoro. Contact front desk for latest fee schedule.\n";
     }
 
     // Hotel Policies & FAQ

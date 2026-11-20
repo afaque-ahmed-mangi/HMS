@@ -222,15 +222,15 @@ export const seedDatabase = async () => {
   // ────────────────────── Fee Heads ──────────────────────
   await FeeHead.create([
     {
-      name: "Room Rent",
-      description: "Monthly room rental charge",
-      amount: 5000,
+      name: "Room Rent (Jamshoro Base)",
+      description: "Monthly room rental charge (Rs. 12,000 for Jamshoro)",
+      amount: 12000,
       frequency: "monthly",
     },
     {
       name: "Mess Fee",
-      description: "Monthly mess / food charge",
-      amount: 3500,
+      description: "Monthly mess / 3-meal food charge",
+      amount: 4500,
       frequency: "monthly",
     },
     {
@@ -242,7 +242,7 @@ export const seedDatabase = async () => {
     {
       name: "Maintenance Fee",
       description: "Quarterly hostel maintenance charge",
-      amount: 2000,
+      amount: 2500,
       frequency: "quarterly",
     },
   ]);
