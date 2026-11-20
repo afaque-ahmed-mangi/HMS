@@ -17,6 +17,6 @@
     { "src": "/api/v1/(.*)", "dest": "back-end/api/index.js" },
     { "src": "/api/(.*)",    "dest": "back-end/api/index.js" },
     { "handle": "filesystem" },
-    { "src": "/(.*)", "dest": "front-end/dist/index.html" }
+    { "src": "/(.*)",        "dest": "front-end/dist/index.html" }
   ]
 }
