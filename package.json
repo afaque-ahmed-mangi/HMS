@@ -1,0 +1,10 @@
+{
+  "name": "hms-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "cd front-end && npm install && npm run build",
+    "dev:frontend": "cd front-end && npm run dev",
+    "dev:backend": "cd back-end && npm run dev"
+  }
+}
