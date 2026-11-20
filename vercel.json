@@ -1,8 +1,5 @@
 {
   "version": 2,
-  "buildCommand": "npm run build",
-  "outputDirectory": "front-end/dist",
-  "installCommand": "npm install",
   "builds": [
     {
       "src": "front-end/package.json",
@@ -20,6 +17,9 @@
     {
       "src": "/api/(.*)",
       "dest": "back-end/api/index.js"
+    },
+    {
+      "handle": "filesystem"
     },
     {
       "src": "/(.*)",
