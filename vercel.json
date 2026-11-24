@@ -14,9 +14,10 @@
     }
   ],
   "routes": [
-    { "src": "/api/v1/(.*)", "dest": "back-end/api/index.js" },
-    { "src": "/api/(.*)",    "dest": "back-end/api/index.js" },
-    { "handle": "filesystem" },
-    { "src": "/(.*)",        "dest": "front-end/dist/index.html" }
+    { "src": "/api/v1/(.*)", "dest": "/back-end/api/index.js" },
+    { "src": "/api/(.*)", "dest": "/back-end/api/index.js" },
+    { "src": "/assets/(.*)", "dest": "/front-end/assets/$1" },
+    { "src": "/(.*\\.(?:js|css|svg|png|jpg|jpeg|gif|ico|webp|woff2?|json))", "dest": "/front-end/$1" },
+    { "src": "/(.*)", "dest": "/front-end/index.html" }
   ]
 }
